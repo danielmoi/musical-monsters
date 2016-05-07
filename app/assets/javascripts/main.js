@@ -3,7 +3,10 @@ var MM = MM || {};
 
 
 // DOM elements
-MM.$monster = $('.monster__craig');
+MM.$monsterBody = $('.monster__body');
+MM.$monsterHat = $('.monster__hat');
+MM.$monsterArmLeft = $('.monster__arm-left');
+MM.$monsterArmRight = $('.monster__arm-right');
 MM.$canvasEq = $('.canvas__equalizer');
 MM.$canvasVol = $('.canvas__volume');
 
@@ -58,7 +61,7 @@ MM.getStream = $.ajax({
 
   // Use javascriptNode to process audio
   // < bufferSize, inputChannels, outputChannels >
-  MM.javascriptNode = MM.audioContext.createScriptProcessor(1024, 1, 1);
+  MM.javascriptNode = MM.audioContext.createScriptProcessor(2048, 1, 1);
 
   // Connect analyser > javascriptNode > audioContext.destination
   MM.analyser.connect(MM.javascriptNode);
@@ -82,9 +85,17 @@ MM.getAverageVolume = function(arr) {
 MM.canvasEqContext = $('.canvas__equalizer')[0].getContext('2d');
 
 // Umbrella function for animation
+MM.fps = 10;
+
 MM.startAnimation = function() {
-  MM.drawTimeDomain();
-  MM.drawVolume();
+  setTimeout(function() {
+    MM.drawTimeDomain();
+    MM.drawVolume();
+    MM.moveMonster();
+
+    requestAnimationFrame(MM.startAnimation);
+  }, 1000 / MM.fps);
+
 };
 
 // Draw on Canvas Equalizer
@@ -123,17 +134,25 @@ MM.drawVolume = function() {
   MM.canvasVolContext.fillRect(width / 2, 100 - MM.averageVolume / 2, width, MM.averageVolume / 2);
 
 };
-MM.timeline = new TimelineLite();
-
 MM.moveMonster = function() {
+  // TweenLite.ticker.addEventListener('tick', function() {
+  //   console.log('hello');
+  // });
   // Move monster
-  if (MM.averageVolume > 64) {
-    TweenLite
-    .to(MM.$monster, 0.1, {bottom: MM.arrFrequencyData[0] / 2});
+  if (MM.averageVolume > 128) {
+    // TweenLite.to(['.monster__body', '.monster__arm-left', '.monster__arm-right'], 0, {top: MM.averageVolume / 2});
+    $('.monster__container').css('top', 128 - MM.averageVolume);
+    $('.monster__hat').css('top', -20);
+    $('.monster__arm-left').css({'top': -20, 'transform': 'rotate(10deg)'});
+    $('.monster__arm-right').css({'top': 20, 'transform': 'rotate(-10deg)'});
+
   }
   else {
-    TweenLite
-    .to(MM.$monster, 0.1, {bottom: MM.arrFrequencyData[0] / 6});
+    // $('.monster__body').css('bottom', 0);
+    $('.monster__container').css('top', 128 - MM.averageVolume);
+    $('.monster__hat').css('top', 0);
+    $('.monster__arm-left').css('top', 0);
+    $('.monster__arm-right').css('top', 0);
 
   }
 };
@@ -158,9 +177,11 @@ $('#play').on('click', function() {
     MM.analyser.getByteTimeDomainData(MM.arrFrequencyData);
 
     // Draw..
-    MM.animID = requestAnimationFrame(MM.startAnimation);
 
   };
+  if (!MM.animID) {
+    MM.animID = requestAnimationFrame(MM.startAnimation);
+  }
 
 });
 
