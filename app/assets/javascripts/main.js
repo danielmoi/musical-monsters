@@ -4,6 +4,8 @@ var MM = MM || {};
 
 // DOM elements
 MM.$monster = $('.monster__craig');
+MM.$canvasEq = $('.canvas__equalizer');
+MM.$canvasVol = $('.canvas__volume');
 
 
 
@@ -48,6 +50,7 @@ MM.getStream = $.ajax({
   MM.source.connect(MM.analyser);
   // MM.analyser.connect(MM.audioContext.destination);
 
+  // Create an array (with the size: frequencyBinCount)
   // Uint8Array = Unsigned Integer 8bit Array
   // Values between 0-255 will be pushed into this array
   // Which represent -1 to +1 (in audio terms)
@@ -63,33 +66,58 @@ MM.getStream = $.ajax({
 
 });
 
+MM.getAverageVolume = function(arr) {
+  var sumVolume = 0;
+  var len = arr.length;
+  for (i = 0; i < len; i++) {
+    sumVolume += arr[i];
+  }
+  var averageVolume = sumVolume / len;
+  return averageVolume;
+};
+
 /////////////////////////////////////////////////////////////////////////////
 
-// Set up Canvas
-MM.canvasContext = $("#canvas").getContext("2d");
-MM.canvasWidth = 512;
-MM.canvasHeight = 256;
+// Set up Canvas for Equalizer
+MM.canvasEqContext = $('.canvas__equalizer')[0].getContext('2d');
 
-// Draw on Canvas
+// Draw on Canvas Equalizer
 MM.drawTimeDomain = function() {
-  MM.clearCanvas();
+  MM.clearCanvasEq();
   for (var i = 0; i < MM.arrFrequencyData.length; i++) {
     var value = MM.arrFrequencyData[i] / 256;
-    var y = MM.canvasHeight - (MM.canvasHeight * value) - 1;
-    MM.canvasContext.fillStyle = '#ffffff';
+    var y = MM.$canvasEq.height() - (MM.$canvasEq.height() * value);
+    MM.canvasEqContext.fillStyle = '#ffffff';
 
     // upperLeft.x, upperLeft.y, width, height
-    MM.canvasContext.fillRect(i * 10 + 100, 200 - y / 2, 5, y / 2);
+    MM.canvasEqContext.fillRect(i * 10 + 10, 100 - y / 2, 5, y / 2);
   }
   // Move monster
   MM.$monster.css('bottom', MM.arrFrequencyData[0] / 3);
 };
 
 // Clear Canvas
-MM.clearCanvas = function() {
-  MM.canvasContext.clearRect(0, 0, MM.canvasWidth, MM.canvasHeight);
+MM.clearCanvasEq = function() {
+  MM.canvasEqContext.clearRect(0, 0, MM.$canvasEq.width(), MM.$canvasEq.height());
+};
+MM.clearCanvasVol = function() {
+  MM.canvasVolContext.clearRect(0, 0, MM.$canvasVol.width(), MM.$canvasVol.height());
+  console.log(MM.$canvasVol.width());
 };
 
+// Set up Canvas for Volume
+MM.canvasVolContext = $('.canvas__volume')[0].getContext('2d');
+
+// Draw on Canvas Volume
+MM.drawVolume = function() {
+  MM.clearCanvasVol();
+  MM.averageVolume = MM.getAverageVolume(MM.arrFrequencyData);
+  // console.log(MM.averageVolume);
+  MM.canvasVolContext.fillStyle = '#ffffff';
+  // MM.canvasVolContext.fillRect(50, 100 - MM.averageVolume / 2, 75, MM.averageVolume / 2);
+  MM.canvasVolContext.fillRect(20, 100 - MM.averageVolume, 75, MM.averageVolume / 2);
+
+};
 /////////////////////////////////////////////////////////////////////////////
 
 // Event Handlers
@@ -111,6 +139,7 @@ $('#play').on('click', function() {
 
     // Draw..
     MM.animID = requestAnimationFrame(MM.drawTimeDomain);
+    MM.volID = requestAnimationFrame(MM.drawVolume);
   };
 
 });
@@ -120,6 +149,7 @@ $('#pause').on('click', function() {
   MM.audioElement.pause();
   clearInterval(MM.samplerID);
   cancelAnimationFrame(MM.animID);
+  cancelAnimationFrame(MM.volID);
 });
 
 /////////////////////////////////////////////////////////////////////////////
