@@ -123,14 +123,18 @@ MM.drawVolume = function() {
   MM.canvasVolContext.fillRect(width / 2, 100 - MM.averageVolume / 2, width, MM.averageVolume / 2);
 
 };
+MM.timeline = new TimelineLite();
 
 MM.moveMonster = function() {
   // Move monster
   if (MM.averageVolume > 64) {
-    MM.$monster.css('bottom', MM.arrFrequencyData[0] / 2);
+    TweenLite
+    .to(MM.$monster, 0.1, {bottom: MM.arrFrequencyData[0] / 2});
   }
   else {
-    MM.$monster.css('bottom', MM.arrFrequencyData[0] / 6);
+    TweenLite
+    .to(MM.$monster, 0.1, {bottom: MM.arrFrequencyData[0] / 6});
+
   }
 };
 /////////////////////////////////////////////////////////////////////////////
