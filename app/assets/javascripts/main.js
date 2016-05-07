@@ -98,8 +98,7 @@ MM.drawTimeDomain = function() {
     // upperLeft.x, upperLeft.y, width, height
     MM.canvasEqContext.fillRect(i * 10 + 10, 100 - y / 2, 5, y / 2);
   }
-  // Move monster
-  MM.$monster.css('bottom', MM.arrFrequencyData[0] / 3);
+
 };
 
 // Clear Canvas
@@ -124,6 +123,16 @@ MM.drawVolume = function() {
   MM.canvasVolContext.fillRect(width / 2, 100 - MM.averageVolume / 2, width, MM.averageVolume / 2);
 
 };
+
+MM.moveMonster = function() {
+  // Move monster
+  if (MM.averageVolume > 64) {
+    MM.$monster.css('bottom', MM.arrFrequencyData[0] / 2);
+  }
+  else {
+    MM.$monster.css('bottom', MM.arrFrequencyData[0] / 6);
+  }
+};
 /////////////////////////////////////////////////////////////////////////////
 
 // Event Handlers
@@ -131,6 +140,7 @@ $('#play').on('click', function() {
   MM.audioElement.play();
 
   // using this setInterval function is a way to display results to the console for viewing. When sending this data for visual processing a ScriptProccessorNode will be used instead.
+  MM.monsterID = setInterval(MM.moveMonster, 100);
 
   MM.samplerID = window.setInterval(function() {
     // Calls getFrequencies, and sets an interval rate.
@@ -145,6 +155,7 @@ $('#play').on('click', function() {
 
     // Draw..
     MM.animID = requestAnimationFrame(MM.startAnimation);
+
   };
 
 });
@@ -153,6 +164,7 @@ $('#play').on('click', function() {
 $('#pause').on('click', function() {
   MM.audioElement.pause();
   clearInterval(MM.samplerID);
+  clearInterval(MM.monsterID);
   cancelAnimationFrame(MM.animID);
 });
 
