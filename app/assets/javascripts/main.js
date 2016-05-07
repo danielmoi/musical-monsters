@@ -1,68 +1,44 @@
-var context = new AudioContext();
+var MM = MM || {};
 
-var oscillator = context.createOscillator();
+MM.audioContext = new AudioContext();
 
-oscillator.connect(context.destination);
 
-var monster = $('.monster__craig');
 
-var audio = new Audio();
-audio.controls = true;
-audio.crossOrigin = "anonymous";
+MM.$monster = $('.monster__craig');
 
-var clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
+MM.audioElement = new Audio();
+MM.audioElement.controls = true;
+MM.audioElement.crossOrigin = "anonymous";
 
-// var soundcloudURL = 'https://api.soundcloud.com/tracks/139590122';
-var soundcloudURL = 'https://api.soundcloud.com/tracks/262738653';
-var soundcloudURL = 'https://api.soundcloud.com/tracks/293';
+MM.clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
 
-var streamURL;
-var trackPermalinkUrl = "https://soundcloud.com/the-outsider/the-outsider-death-by-melody";
+MM.soundcloudURL = 'https://api.soundcloud.com/tracks/293';
 
-var source;
-var analyser;
-var frequencyData;
+MM.trackPermalinkUrl = "https://soundcloud.com/the-outsider/the-outsider-death-by-melody";
+
 // Function that receives & returns the frequencyData
-var getFrequencies = function() {
+MM.getFrequencies = function() {
   // Copies the current frequency data into the passed unsigned byte array.
   // The getByteFrequencyData() method of the AnalyserNode interface copies the current frequency data into a Uint8Array (unsigned byte array) passed into it.
   analyser.getByteFrequencyData(frequencyData);
 
   return frequencyData;
 };
-var javascriptNode;
-var offlineContext = new OfflineAudioContext(1, 2, 44100);
-var request = new XMLHttpRequest();
-// request.open('GET', soundcloudURL + '?' + clientID, true);
-request.open('GET', "http://api.soundcloud.com/resolve.json?url=" + trackPermalinkUrl + '&' + clientID, true);
-request.responseType = 'arraybuffer';
-request.onload = function() {
-  console.log(typeof request.response);
 
-  // offlineContext.decodeAudioData(request.response, function(buffer) {
-  //   console.log(typeof buffer);
-  // });
-};
-request.send();
 
-$.ajax({
+MM.getStream = $.ajax({
   // url: "https://api.soundcloud.com/resolve.json?url=" + trackPermalinkUrl + "&" + clientID
-  url: soundcloudURL + "?" + clientID
+  url: MM.soundcloudURL + "?" + MM.clientID
 }).done(function(response) {
-  console.log(typeof response);
-  streamURL = response.stream_url + '?' + clientID;
-  audio.src = streamURL;
+  MM.streamURL = response.stream_url + '?' + MM.clientID;
+  MM.audioElement.src = MM.streamURL;
 
-  // audio[0].src = streamURL;
-  // console.log('hello');
-  // $('body').append(audio);
-
-  source = context.createMediaElementSource(audio);
-  analyser = context.createAnalyser();
-  analyser.fftSize = 64;
-  analyser.smoothingTimeConstant = 0.3;
-  source.connect(analyser);
-  analyser.connect(context.destination);
+  MM.source = MM.audioContext.createMediaElementSource(MM.audioElement);
+  MM.analyser = MM.audioContext.createAnalyser();
+  MM.analyser.fftSize = 64;
+  MM.analyser.smoothingTimeConstant = 0.3;
+  MM.source.connect(MM.analyser);
+  MM.analyser.connect(MM.audioContext.destination);
 
 
 
@@ -71,74 +47,68 @@ $.ajax({
   // Uint8Array = Unsigned Integer 8bit Array
   // Values between 0-255 will be pushed into this array
   // Which represent -1 to +1 (in audio terms)
-  frequencyData = new Uint8Array(analyser.frequencyBinCount);
-
-  // audio.play() works
+  MM.arrFrequencyData = new Uint8Array(MM.analyser.frequencyBinCount);
 
 
-  // This interface is an AudioNode which can generate, process, or analyse audio directly using JavaScript.
-
-  javascriptNode = context.createScriptProcessor(1024, 1, 1);
+  // Use javascriptNode to process audio
+  MM.javascriptNode = MM.audioContext.createScriptProcessor(1024, 1, 1);
 
   // This node also need to be connected to the analyserNode and the destination:
-
-  analyser.connect(javascriptNode);
-  javascriptNode.connect(context.destination);
+  MM.analyser.connect(MM.javascriptNode);
+  MM.javascriptNode.connect(MM.audioContext.destination);
 
 });
 
-var samplerID;
 
 $('#pause').on('click', function() {
-  audio.pause();
+  MM.audioElement.pause();
 
-  clearInterval(samplerID);
-  cancelAnimationFrame(animID);
+  clearInterval(MM.samplerID);
+  cancelAnimationFrame(MM.animID);
 });
 
 
 // 2D rendering context for a drawing surface of a `<canvas>` element.
-var ctx = $("#canvas")[0].getContext("2d");
+MM.canvasContext = $("#canvas")[0].getContext("2d");
 
-var canvasWidth  = 512;
-var canvasHeight = 256;
+MM.canvasWidth  = 512;
+MM.canvasHeight = 256;
 
-var drawTimeDomain = function() {
-  clearCanvas();
-  for (var i = 0; i < frequencyData.length; i++) {
-    var value = frequencyData[i] / 256;
-    var y = canvasHeight - (canvasHeight * value) - 1;
-    ctx.fillStyle = '#ffffff';
+MM.drawTimeDomain = function() {
+  MM.clearCanvas();
+  for (var i = 0; i < MM.arrFrequencyData.length; i++) {
+    var value = MM.arrFrequencyData[i] / 256;
+    var y = MM.canvasHeight - (MM.canvasHeight * value) - 1;
+    MM.canvasContext.fillStyle = '#ffffff';
 
     // upperLeft.x, upperLeft.y, width, height
-    ctx.fillRect(i * 10 + 100, 200 - y/2, 5, y/2);
+    MM.canvasContext.fillRect(i * 10 + 100, 200 - y/2, 5, y/2);
   }
-  monster.css('bottom', frequencyData[0] / 3);
+  MM.$monster.css('bottom', MM.arrFrequencyData[0] / 3);
 };
 
-var clearCanvas = function() {
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+MM.clearCanvas = function() {
+  MM.canvasContext.clearRect(0, 0, MM.canvasWidth, MM.canvasHeight);
 };
 
-var animID;
 $('#play').on('click', function() {
-  audio.play();
+  MM.audioElement.play();
 
   // using this setInterval function is a way to display results to the console for viewing. When sending this data for visual processing a ScriptProccessorNode will be used instead.
 
-  samplerID = window.setInterval(function() {
+  MM.samplerID = window.setInterval(function() {
     // Calls getFrequencies, and sets an interval rate.
     // console.log(getFrequencies());
   }, 100);
 
   // An event listener which is called periodically for audio processing.
-  javascriptNode.onaudioprocess = function () {
+  MM.javascriptNode.onaudioprocess = function () {
 
     // Get the Time Domain data for this sample
-    analyser.getByteTimeDomainData(frequencyData);
+    MM.analyser.getByteTimeDomainData(MM.arrFrequencyData);
 
     // Draw..
-    animID = requestAnimationFrame(drawTimeDomain);
+    MM.animID = requestAnimationFrame(MM.drawTimeDomain);
   };
 
 });
