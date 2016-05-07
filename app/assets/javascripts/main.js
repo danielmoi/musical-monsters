@@ -81,6 +81,12 @@ MM.getAverageVolume = function(arr) {
 // Set up Canvas for Equalizer
 MM.canvasEqContext = $('.canvas__equalizer')[0].getContext('2d');
 
+// Umbrella function for animation
+MM.startAnimation = function() {
+  MM.drawTimeDomain();
+  MM.drawVolume();
+};
+
 // Draw on Canvas Equalizer
 MM.drawTimeDomain = function() {
   MM.clearCanvasEq();
@@ -101,8 +107,7 @@ MM.clearCanvasEq = function() {
   MM.canvasEqContext.clearRect(0, 0, MM.$canvasEq.width(), MM.$canvasEq.height());
 };
 MM.clearCanvasVol = function() {
-  MM.canvasVolContext.clearRect(0, 0, MM.$canvasVol.width(), MM.$canvasVol.height());
-  console.log(MM.$canvasVol.width());
+  MM.canvasVolContext.clearRect(0, 0, MM.$canvasVol.width() * 2, MM.$canvasVol.height());
 };
 
 // Set up Canvas for Volume
@@ -111,11 +116,12 @@ MM.canvasVolContext = $('.canvas__volume')[0].getContext('2d');
 // Draw on Canvas Volume
 MM.drawVolume = function() {
   MM.clearCanvasVol();
+  var width = MM.$canvasVol.width();
   MM.averageVolume = MM.getAverageVolume(MM.arrFrequencyData);
   // console.log(MM.averageVolume);
-  MM.canvasVolContext.fillStyle = '#ffffff';
+  MM.canvasVolContext.fillStyle = '#00ffff';
   // MM.canvasVolContext.fillRect(50, 100 - MM.averageVolume / 2, 75, MM.averageVolume / 2);
-  MM.canvasVolContext.fillRect(20, 100 - MM.averageVolume, 75, MM.averageVolume / 2);
+  MM.canvasVolContext.fillRect(width / 2, 100 - MM.averageVolume / 2, width, MM.averageVolume / 2);
 
 };
 /////////////////////////////////////////////////////////////////////////////
@@ -138,8 +144,7 @@ $('#play').on('click', function() {
     MM.analyser.getByteTimeDomainData(MM.arrFrequencyData);
 
     // Draw..
-    MM.animID = requestAnimationFrame(MM.drawTimeDomain);
-    MM.volID = requestAnimationFrame(MM.drawVolume);
+    MM.animID = requestAnimationFrame(MM.startAnimation);
   };
 
 });
@@ -149,7 +154,6 @@ $('#pause').on('click', function() {
   MM.audioElement.pause();
   clearInterval(MM.samplerID);
   cancelAnimationFrame(MM.animID);
-  cancelAnimationFrame(MM.volID);
 });
 
 /////////////////////////////////////////////////////////////////////////////
