@@ -31,22 +31,39 @@ var getFrequencies = function() {
   return frequencyData;
 };
 var javascriptNode;
+var offlineContext = new OfflineAudioContext(1, 2, 44100);
+var request = new XMLHttpRequest();
+// request.open('GET', soundcloudURL + '?' + clientID, true);
+request.open('GET', "http://api.soundcloud.com/resolve.json?url=" + trackPermalinkUrl + '&' + clientID, true);
+request.responseType = 'arraybuffer';
+request.onload = function() {
+  console.log(typeof request.response);
+
+  // offlineContext.decodeAudioData(request.response, function(buffer) {
+  //   console.log(typeof buffer);
+  // });
+};
+request.send();
+
 $.ajax({
   // url: "https://api.soundcloud.com/resolve.json?url=" + trackPermalinkUrl + "&" + clientID
   url: soundcloudURL + "?" + clientID
 }).done(function(response) {
-  // console.log(response);
+  console.log(typeof response);
   streamURL = response.stream_url + '?' + clientID;
   audio.src = streamURL;
+
   // audio[0].src = streamURL;
   // console.log('hello');
   // $('body').append(audio);
 
   source = context.createMediaElementSource(audio);
   analyser = context.createAnalyser();
-  analyser.fftSize = 32;
+  analyser.fftSize = 64;
+  analyser.smoothingTimeConstant = 0.3;
   source.connect(analyser);
   analyser.connect(context.destination);
+
 
 
 
@@ -94,7 +111,7 @@ var drawTimeDomain = function() {
     ctx.fillStyle = '#ffffff';
 
     // upperLeft.x, upperLeft.y, width, height
-    ctx.fillRect(i * 20 + 100, 200 - y/2, 10, y/2);
+    ctx.fillRect(i * 10 + 100, 200 - y/2, 5, y/2);
   }
   monster.css('bottom', frequencyData[0] / 3);
 };
