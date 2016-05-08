@@ -1,7 +1,48 @@
 var m3d = m3d || {};
 
 
+m3d.audioContext = new AudioContext();
+m3d.audioElement = new Audio();
+m3d.audioElement.controls = true;
+m3d.audioElement.crossOrigin = 'anonymous';
 
+// SoundCloud details
+m3d.clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
+m3d.soundcloudURL = 'https://api.soundcloud.com/tracks/293';
+
+m3d.getStream = $.ajax({
+  url: m3d.soundcloudURL + '?' + m3d.clientID
+})
+  .done(function(response) {
+    m3d.streamURL = response.stream_url + '?' + m3d.clientID;
+    m3d.audioElement.src = m3d.streamURL;
+    m3d.source = m3d.audioContext.createMediaElementSource(m3d.audioElement);
+    // connect: audioElement > destination
+    m3d.source.connect(m3d.audioContext.destination);
+
+    m3d.analyser = m3d.audioContext.createAnalyser();
+    m3d.analyser.fftSize = 512;
+    m3d.smoothingTimeConstant = 0.6;
+
+    m3d.javascriptNode = m3d.audioContext.createScriptProcessor(2048, 1, 1);
+
+    // connect: audioElement > analyser > jsNode > destination
+    m3d.source.connect(m3d.analyser);
+    m3d.analyser.connect(m3d.javascriptNode);
+    m3d.javascriptNode.connect(m3d.audioContext.destination);
+
+
+
+});
+
+$('#play').on('click', function() {
+  m3d.audioElement.play();
+  console.log('play');
+});
+
+$('#pause').on('click', function() {
+  m3d.audioElement.pause();
+});
 
 m3d.init = function() {
 
