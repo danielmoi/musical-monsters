@@ -41,8 +41,12 @@ MM.getStream = $.ajax({
   MM.streamURL = response.stream_url + '?' + MM.clientID;
   MM.audioElement.src = MM.streamURL;
 
-  // Create new elements for Audio environment
+  // Create new element for Audio environment
   MM.source = MM.audioContext.createMediaElementSource(MM.audioElement);
+  // connect: audioElement > destination
+  MM.source.connect(MM.audioContext.destination);
+
+  // create analyser
   MM.analyser = MM.audioContext.createAnalyser();
 
   // Customise analyser
