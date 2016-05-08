@@ -19,6 +19,29 @@ var moveStickL = function() {
   tlStickL.restart();
 };
 
+var tlPedal = new TimelineLite({ paused: true });
+tlPedal.to(pedal, 0.2, { rotation: 30, transformOrigin: '100% 100%', ease: Power0.easeIn });
+tlPedal.to(pedal, 0.2, { rotation: 0, transformOrigin: '100% 100%', ease: Power0.easeIn });
+
+var movePedal = function() {
+  tlPedal.restart();
+};
 
 $('#hi-hat').on('click', moveStickR);
 $('#snare').on('click', moveStickL);
+$('#bass').on('click', movePedal);
+
+$(document).on('keydown', function(e) {
+  // S key
+  if (e.keyCode === 83) {
+    $('#snare').trigger('click');
+  }
+
+  // H key
+  if (e.keyCode === 72) {
+    $('#hi-hat').trigger('click');
+  }
+  if (e.keyCode === 66) {
+    $('#bass').trigger('click');
+  }
+});
