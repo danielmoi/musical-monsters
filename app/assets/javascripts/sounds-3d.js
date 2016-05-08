@@ -5,12 +5,20 @@ var m3d = m3d || {};
 
 m3d.init = function() {
 
+
+  ///////////////////////////////////////////////////////////////////////////
+  // SCENE
+
   // create a scene
   m3d.scene = new THREE.Scene();
 
   // set scene size
   m3d.WIDTH = $('.main__container').width();
   m3d.HEIGHT = m3d.WIDTH * 9/16;
+
+
+  ///////////////////////////////////////////////////////////////////////////
+  // CAMERA
 
   // set camera attributes
   m3d.VIEW_ANGLE = 45;
@@ -32,6 +40,10 @@ m3d.init = function() {
   m3d.camera.position.z = 300;
   m3d.camera.lookAt( m3d.scene.position );
 
+
+  ///////////////////////////////////////////////////////////////////////////
+  // RENDERER
+
   // create a WebGL renderer
   m3d.renderer = new THREE.WebGLRenderer();
 
@@ -47,9 +59,13 @@ m3d.init = function() {
   // attach the DOM element supplied by renderer
   m3d.$container.append(m3d.renderer.domElement);
 
-  // // add visual axes
+  // // // add visual axes
   // m3d.axes = THREE.AxisHelper(40);
   // m3d.scene.add( m3d.axes );
+
+
+  ///////////////////////////////////////////////////////////////////////////
+  // CREATE SPHERE
 
   // Primitives are geometric meshes, relatively basic ones like Spheres, Planes, Cubes and Cylinders.
   // Let's use primitives instead of importing models from Blender / Maya / C4D / Other
@@ -68,7 +84,9 @@ m3d.init = function() {
   // add sphere to scene
   m3d.scene.add(m3d.sphereMesh);
 
-  // add light
+  ///////////////////////////////////////////////////////////////////////////
+  // CREATE LIGHT
+
   m3d.pointLight = new THREE.PointLight(0xffffff);
 
   m3d.pointLight.position.x = 10;
@@ -77,17 +95,42 @@ m3d.init = function() {
 
   m3d.scene.add( m3d.pointLight );
 
+  ///////////////////////////////////////////////////////////////////////////
+  // ADD CONTROLS
+  // These allow us to zoom in etc
+
   m3d.controls = new THREE.OrbitControls( m3d.camera, m3d.renderer.domElement);
 
+  ///////////////////////////////////////////////////////////////////////////
+  // GO
+  // (actually render, and keep rendering)
+
   m3d.animate();
+
+
 };
 
 m3d.animate = function() {
+
+  // render the scene
   m3d.renderer.render( m3d.scene, m3d.camera );
+
+  // let's go again
   requestAnimationFrame( m3d.animate );
 };
 
+m3d.onResize = function() {
+  m3d.WIDTH = $('.main__container').width();
+  m3d.HEIGHT = m3d.WIDTH * 9/16;
+  m3d.camera.aspect = m3d.WIDTH / m3d.HEIGHT;
 
+  m3d.camera.updateProjectionMatrix();
+
+  m3d.renderer.setSize(m3d.WIDTH, m3d.HEIGHT);
+
+};
+
+window.addEventListener('resize', m3d.onResize, false);
 
 $(document).ready(function() {
   m3d.init();
