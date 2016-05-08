@@ -1,0 +1,13 @@
+// 4. BASE ELEMENTS
+* {
+  box-sizing: border-box;
+}
+body {
+  // background-image: url('/assets/background.jpg');
+  // background-size: 130%;
+  background: white;
+  font-size: 13px;
+  @media screen and (min-width: 600px) {
+    font-size: 16px;
+  }
+}

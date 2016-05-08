@@ -1,0 +1,22 @@
+<h2 class="main__title">2D Dance</h2>
+
+
+<div class="canvas__container">
+  <canvas id="canvas__equalizer" class="canvas__equalizer"></canvas>
+  <canvas id="canvas__volume" class="canvas__volume"></canvas>
+</div>
+
+<div class="btn-container">
+  <div id="play" class="btn">Play</div>
+  <div id="pause" class="btn">Pause</div>
+</div>
+
+
+<div class="monster__container">
+  <%= image_tag 'm-body.png', :class => 'monster__body' %>
+  <%= image_tag 'm-hat.png', :class => 'monster__hat' %>
+  <%= image_tag 'm-left.png', :class => 'monster__arm-left' %>
+  <%= image_tag 'm-right.png', :class => 'monster__arm-right' %>
+</div>
+
+<%= javascript_include_tag 'main.js' %>

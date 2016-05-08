@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>MusicalMonsters</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenLite.min.js' %>
+  <head>
+    <title>MusicalMonsters</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenLite.min.js' %>
 
-</head>
-<body>
+  </head>
+  <body>
+    <header class="header__container">
+      <div class="header__logo"></div>
+      <h1 class="header__title">Musical Monsters</h1>
 
-<%= yield %>
+    </header>
 
+    <nav class="nav__container">
+      <ul class="nav__list">
+        <li class="nav__list-item"><%= link_to 'HOME', root_path %></li>
+        <li class="nav__list-item"><%= link_to 'DANCE 2D', dance_2d_path %></li>
+        <li class="nav__list-item"><%= link_to 'PLAY', play_path %></li>
+      </ul>
+    </nav>
 
-</body>
+    <main class="main__container">
+      <%= yield %>
+    </main>
+
+  </body>
 </html>

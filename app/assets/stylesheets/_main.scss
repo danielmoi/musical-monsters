@@ -1,22 +1,17 @@
-* {
-  box-sizing: border-box;
-  font-family: Helvetica;
-  color: #333333;
-}
-
-body {
+.main__container {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  top: 120px;
+  @media screen and (min-width: 600px) {
+    top: 150px;
+  }
 }
 
-h1 {
+.main__title {
   text-align: center;
+  padding: 1em 0;
 }
-
-div {
-  margin: 10px;
-}
-
 .monster__container {
   max-width: 50%;
   margin: 20px auto;
@@ -51,10 +46,9 @@ div {
   // right: -20px;
 }
 
-img {
-  max-width: 100%;
+.canvas__container {
+  text-align: center;
 }
-
 .canvas__equalizer {
   width: 80%;
   height: 256px;
