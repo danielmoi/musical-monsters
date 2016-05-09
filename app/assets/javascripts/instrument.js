@@ -69,15 +69,21 @@ M.createOscillator = function(id) {
 
 M.monster = $('#monster');
 
+// using a proxy because SVG groups have no width
+M.monsterWidth = $('#monster')[0].getBoundingClientRect().width;
+
 
 $('rect').on('mousedown', function() {
 
   var left = $(this).attr('x'); //offset().left;
-  console.log(left);
+  var width = $(this).attr('width');
+  var delta = ( M.monsterWidth - width ) / 3; // an approximation
+  console.log(delta);
+  // console.log(left);
 
   var tlMonster = new TimelineLite();
   tlMonster.to(M.monster, 0.1, {
-      x: left,
+      x: left - delta,
       ease: Power0.easeIn
     })
     .to(M.monster, 0.1, {
