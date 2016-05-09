@@ -1,0 +1,30 @@
+.dj__container {
+  height: 50vh;
+  text-align: center;
+}
+
+.dj__svg {
+  height: 100%;
+}
+
+.dj-controls__container {
+  text-align: center;
+  padding: 1em 0;
+}
+.dj-controls__left,
+.dj-controls__right {
+  width: 35%;
+  display: inline-block;
+}
+
+.dj-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid $primary;
+  border-radius: 50%;
+  text-align: center;
+
+  line-height: 40px;
+  vertical-align: middle;
+}
