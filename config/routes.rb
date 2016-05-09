@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'dance-2d' => 'pages#dance-2d'
+  get 'dance' => 'pages#dance'
   get 'dj' => 'pages#dj'
   get 'play' => 'pages#play'
   get 'sounds-3d' => 'pages#sounds-3d'

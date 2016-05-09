@@ -1,9 +1,15 @@
-<h2 class="main__title">2D Dance</h2>
+<h2 class="main__title">Dance 2D</h2>
 
 
 <div class="canvas__container">
   <canvas id="canvas__equalizer" class="canvas__equalizer"></canvas>
   <canvas id="canvas__volume" class="canvas__volume"></canvas>
+</div>
+
+<div class="dance-search__container">
+  <input type="text" placeholder="Type in a song name" value="Chandelier">
+  <label for=""></label>
+  <button id="dance-search" class="btn">Search</button>
 </div>
 
 <div class="btn-container">
@@ -19,4 +25,5 @@
   <%= image_tag 'm-right.png', :class => 'monster__arm-right' %>
 </div>
 
-<%= javascript_include_tag 'main.js' %>
+<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+<%= javascript_include_tag 'dance.js' %>

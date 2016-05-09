@@ -1,6 +1,24 @@
 var MM = MM || {};
 
+/////////////////////////////////////////////////////////////////////////////
 
+
+// SoundCloud details
+MM.soundCloudID = "3b2585ef4a5eff04935abe84aad5f3f3";
+MM.clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
+MM.soundcloudURL = 'https://api.soundcloud.com/tracks/293';
+MM.trackPermalinkUrl = "https://soundcloud.com/the-outsider/the-outsider-death-by-melody";
+
+
+SC.initialize({
+  client_id: MM.soundCloudID
+});
+
+SC.get('/tracks', {
+  q: 'chandelier', license: 'cc-by-sa'
+}).then(function(tracks) {
+  console.log(tracks);
+});
 
 // DOM elements
 MM.$monsterBody = $('.monster__body');
@@ -12,10 +30,6 @@ MM.$canvasVol = $('.canvas__volume');
 
 
 
-// SoundCloud details
-MM.clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
-MM.soundcloudURL = 'https://api.soundcloud.com/tracks/293';
-MM.trackPermalinkUrl = "https://soundcloud.com/the-outsider/the-outsider-death-by-melody";
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -34,6 +48,14 @@ MM.getFrequencies = function() {
   return frequencyData;
 };
 
+$('#dance-search').on('click', function() {
+  console.log('search');
+  // MM.getSTREAM = $.ajax({
+  //   url: MM.soundcloudURL
+  // });
+
+
+});
 
 MM.getStream = $.ajax({
   url: MM.soundcloudURL + "?" + MM.clientID
