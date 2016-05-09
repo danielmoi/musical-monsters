@@ -31,6 +31,8 @@ m3d.getStream = $.ajax({
     m3d.analyser.connect(m3d.javascriptNode);
     m3d.javascriptNode.connect(m3d.audioContext.destination);
 
+    m3d.arrFrequencyData = new Uint8Array(m3d.analyser.frequencyBinCount);
+
 
 
 });
@@ -38,6 +40,11 @@ m3d.getStream = $.ajax({
 $('#play').on('click', function() {
   m3d.audioElement.play();
   console.log('play');
+
+  m3d.javascriptNode.onaudioprocess = function() {
+    m3d.analyser.getByteFrequencyData(m3d.arrFrequencyData);
+  };
+
 });
 
 $('#pause').on('click', function() {
@@ -123,7 +130,37 @@ m3d.init = function() {
 
   m3d.sphereMesh = new THREE.Mesh( m3d.sphereGeometry, m3d.sphereMaterial );
   // add sphere to scene
-  m3d.scene.add(m3d.sphereMesh);
+  // m3d.scene.add(m3d.sphereMesh);
+
+  ///////////////////////////////////////////////////////////////////////////
+  // CREATE CUBES
+  m3d.arrCubes = [];
+
+  var i = 0;
+  for (var x = 0; x < 30; x += 2) {
+    var j = 0;
+    m3d.arrCubes[i] = [];
+    for (var y = 0; y < 30; y += 2) {
+      var geometry = new THREE.CubeGeometry(1.5, 1.5, 1.5);
+      var material = new THREE.MeshPhongMaterial({
+        color: 0x00ff00,
+        specular: 0xffffff,
+        shininess: 20,
+        reflectivity: 5.5
+      });
+      m3d.arrCubes[i][j] = new THREE.Mesh(geometry, material);
+
+      // set positions here, no need to use Vector3
+      m3d.arrCubes[i][j].position.set(x, y, 0);
+
+      m3d.scene.add( m3d.arrCubes[i][j] );
+      j += 1;
+    }
+    i += 1;
+
+  }
+
+
 
   ///////////////////////////////////////////////////////////////////////////
   // CREATE LIGHT
@@ -149,17 +186,36 @@ m3d.init = function() {
   m3d.animate();
 
 
-};
+}; // End init function
 
+///////////////////////////////////////////////////////////////////////////
+
+// The render function
 m3d.animate = function() {
+
+  m3d.arrFrequencyData = m3d.arrFrequencyData || [];
+  var k = 0;
+  for (var m = 0; m < m3d.arrCubes.length; m++) {
+    for (var n = 0; n < m3d.arrCubes.length; n++) {
+      var scale = m3d.arrFrequencyData[k] / 30;
+      m3d.arrCubes[m][n].scale.z = scale < 1 ? 1 : scale;
+      k += (k < m3d.arrFrequencyData.length ? 1 : 0);
+      // console.log(scale);
+    }
+  }
+
 
   // render the scene
   m3d.renderer.render( m3d.scene, m3d.camera );
+
+
 
   // let's go again
   requestAnimationFrame( m3d.animate );
 };
 
+///////////////////////////////////////////////////////////////////////////
+// Handle resizing
 m3d.onResize = function() {
   m3d.WIDTH = $('.main__container').width();
   m3d.HEIGHT = m3d.WIDTH * 9/16;
@@ -173,8 +229,9 @@ m3d.onResize = function() {
 
 window.addEventListener('resize', m3d.onResize, false);
 
+
+///////////////////////////////////////////////////////////////////////////
+// Set up once page is ready
 $(document).ready(function() {
   m3d.init();
 });
-
-// window.onload = m3d.init();
