@@ -34,7 +34,7 @@ M.createOscillator = function(id) {
   oscillator.type = 'sine';
   oscillator.frequency.value = id;
   M.currentOsc = oscillator;
-  gainNode.gain.value = 0.5;
+  gainNode.gain.value = 1;
   M.currentGain = gainNode;
 
   oscillator.connect(gainNode);
@@ -43,10 +43,23 @@ M.createOscillator = function(id) {
   oscillator.start(0);
 };
 
+M.monster = $('#monster');
 
 
 $('rect').on('mousedown', function() {
+
+  var left = $(this).attr('x'); //offset().left;
+  console.log(left);
+  var tlMonster = new TimelineLite();
+  tlMonster.to(M.monster, 1, {x: left });
+  // M.monster.css('left', left);
+
+
+
+
+
   var freq = M.arrNotes[$(this)[0].id];
+  // console.log(freq);
   var noteString = $(this)[0].id;
   M.createOscillator(freq);
   var note = noteString.slice(0, noteString.length - 1  );
