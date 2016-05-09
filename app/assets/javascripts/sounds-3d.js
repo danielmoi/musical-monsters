@@ -85,7 +85,7 @@ m3d.init = function() {
   m3d.scene.add(m3d.camera);
 
   // the camera starts at 0,0,0 – so we pull back
-  m3d.camera.position.x = 30;
+  m3d.camera.position.x = -20;
   m3d.camera.position.y = -50;
   m3d.camera.position.z = 60;
 
@@ -132,6 +132,10 @@ m3d.init = function() {
   ///////////////////////////////////////////////////////////////////////////
   // CREATE CUBES
   m3d.arrCubes = [];
+  m3d.textureLoader = new THREE.TextureLoader();
+  m3d.texture1 = m3d.textureLoader.load('/images/monster-square.png');
+  // m3d.material1 = new THREE.MeshBasicMaterial( { map: m3d.texture1 });
+  // m3d.faceMaterial = new THREE.MeshFaceMaterial( m3d.material1 );
 
   var i = 0;
   for (var x = 0; x < 30; x += 2) {
@@ -139,11 +143,9 @@ m3d.init = function() {
     m3d.arrCubes[i] = [];
     for (var y = 0; y < 30; y += 2) {
       var geometry = new THREE.CubeGeometry(1.5, 1.5, 1.5);
-      var material = new THREE.MeshPhongMaterial({
-        color: 0x00ff00,
-        specular: 0xffffff,
-        shininess: 20,
-        reflectivity: 5.5
+      var material = new THREE.MeshLambertMaterial({
+        // color: 0x00ff00
+        map: m3d.texture1
       });
       m3d.arrCubes[i][j] = new THREE.Mesh(geometry, material);
 
