@@ -1,3 +1,25 @@
-<h2 class="main__title">Sign up</h2>
+<h2 class="main__title">Signup</h2>
 
-<%= render :partial => 'form' %>
+
+<%= form_for @user, :html => {:class => 'form'} do |f| %>
+
+<fieldset>
+  <%= f.label :email, :class => 'label'  %>
+  <%= f.email_field :email, :required => true, :class => 'input'  %>
+</fieldset>
+
+<fieldset>
+  <%= f.label :password, :class => 'label' %>
+  <%= f.password_field :password, :required => true, :class => 'input' %>
+</fieldset>
+
+<fieldset>
+  <%= f.label :password_confirmation, "Confirm password", :class => 'label' %>
+  <%= f.password_field :password_confirmation, :required => true, :class => 'input' %>
+</fieldset>
+
+<div class="btn-container">
+  <%= f.submit "Signup", :class => 'btn' %>
+</div>
+
+<% end %>

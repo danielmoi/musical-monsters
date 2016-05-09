@@ -22,7 +22,24 @@
         <li class="nav__list-item"><%= link_to 'SOUNDS 3D', sounds_3d_path %></li>
         <li class="nav__list-item"><%= link_to 'PLAY', play_path %></li>
         <li class="nav__list-item"><%= link_to 'INSTRUMENT', instrument_path %></li>
+
+        <!--  CONDITIONAL LINKS -->
+        <!--  if user is logged in -->
+        <% if @current_user.present? %>
+        <li class="nav__list-item"><%= link_to 'PROFILE', user_path(@current_user) %></li>
+        <li class="nav-list__item"><%= link_to "LOGOUT", logout_path, :method => :delete %></li>
+
+
+        <!--  User is NOT logged in -->
+        <% else %>
+        <li class="nav__list-item"><%= link_to 'SIGN UP', signup_path %></li>
+        <li class="nav__list-item"><%= link_to 'LOGIN', login_path %></li>
+
+        <% end %>
+        <!--  END CONDITIONAL LINKS -->
+
       </ul>
+
     </nav>
 
     <main class="main__container">

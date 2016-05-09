@@ -17,13 +17,30 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find params[:id]
+    @user = @current_user
   end
 
   def edit
-    # @user = @current_user #User.find(params[:id])
-    @user = User.find params[:id]
+    @user = @current_user
+
   end
+
+  def update
+    @user = @current_user
+    if @user.update user_params
+      # if user_params[:image_url]
+      #   req = Cloudinary::Uploader.upload user_params[:image_url]
+      #   @user.image_url = req["url"]
+      # end
+
+      @user.save
+      redirect_to user_path(@user)
+    else
+      # redirect_to user_path(@user)
+      render 'edit'
+    end
+  end
+
 
   private
   def user_params
