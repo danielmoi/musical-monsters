@@ -113,26 +113,6 @@ m3d.init = function() {
 
 
   ///////////////////////////////////////////////////////////////////////////
-  // CREATE SPHERE
-
-  // Primitives are geometric meshes, relatively basic ones like Spheres, Planes, Cubes and Cylinders.
-  // Let's use primitives instead of importing models from Blender / Maya / C4D / Other
-  m3d.radius = 50;
-  m3d.segments = 16;
-  m3d.rings = 16;
-
-  // create a new mesh with sphere geometry
-  m3d.sphereMaterial = new THREE.MeshLambertMaterial({
-    color: 0xCC0000
-  });
-
-  m3d.sphereGeometry = new THREE.SphereGeometry(m3d.radius, m3d.segments, m3d.rings);
-
-  m3d.sphereMesh = new THREE.Mesh( m3d.sphereGeometry, m3d.sphereMaterial );
-  // add sphere to scene
-  // m3d.scene.add(m3d.sphereMesh);
-
-  ///////////////////////////////////////////////////////////////////////////
   // CREATE CUBES
   m3d.arrCubes = [];
 
