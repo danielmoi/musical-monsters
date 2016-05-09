@@ -1,19 +1,43 @@
 var M = M || {};
 
 M.arrNotes = {
-  'C4': 261.6,
-  'Db4': 277.2,
-  'D4': 293.7,
-  'Eb4': 311.1,
-  'E4': 329.6,
-  'F4': 349.2,
-  'F#4': 370.0,
-  'G4': 392.0,
-  'Ab4': 415.3,
-  'A4': 440.0,
-  'Bb4': 466.2,
-  'B4': 493.9,
-  'C5': 523.3
+  'C3': 130.81,
+  'Db3': 138.59,
+  'D3': 146.83,
+  'Eb3': 155.56,
+  'E3': 164.81,
+  'F3': 174.61,
+  'F#3': 185.00,
+  'G3': 196.00,
+  'Ab3': 207.65,
+  'A3': 220.00,
+  'Bb3': 233.08,
+  'B3': 246.94,
+  'C4': 261.63,
+  'Db4': 277.18,
+  'D4': 293.66,
+  'Eb4': 311.13,
+  'E4': 329.63,
+  'F4': 349.23,
+  'F#4': 369.99,
+  'G4': 392.00,
+  'Ab4': 415.30,
+  'A4': 440.00,
+  'Bb4': 466.16,
+  'B4': 493.88,
+  'C5': 523.25,
+  'Db5': 554.37,
+  'D5': 587.33,
+  'Eb5': 622.25,
+  'E5': 659.26,
+  'F5': 698.46,
+  'F#5': 739.99,
+  'G5': 783.99,
+  'Ab5': 830.61,
+  'A5': 880.00,
+  'Bb5': 932.33,
+  'B5': 987.77,
+  'C6': 1046.50
 
 };
 
@@ -51,17 +75,19 @@ $('rect').on('mousedown', function() {
   var left = $(this).attr('x'); //offset().left;
   console.log(left);
 
-
   var tlMonster = new TimelineLite();
-  tlMonster.to(M.monster, 0.1, { x: left, ease: Power0.easeIn })
-  .to(M.monster, 0.1, { y: '-= 10', yoyo: true, repeat: 2 })
-  .to(M.monster, 0.1, { y: '+= 10' });
-
-
-
-
-
-
+  tlMonster.to(M.monster, 0.1, {
+      x: left,
+      ease: Power0.easeIn
+    })
+    .to(M.monster, 0.1, {
+      y: '-= 10',
+      yoyo: true,
+      repeat: 2
+    })
+    .to(M.monster, 0.1, {
+      y: '+= 10'
+    });
 
   var freq = M.arrNotes[$(this)[0].id];
   // console.log(freq);
