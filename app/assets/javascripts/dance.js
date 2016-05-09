@@ -44,7 +44,7 @@ MM.getFrequencies = function() {
   return frequencyData;
 };
 
-$('#dance-search').on('click', function() {
+$('#soundcloud-search').on('click', function() {
   var input = $('#input-dance-search').val();
   console.log(input);
   // SC.get('/tracks', {
