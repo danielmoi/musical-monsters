@@ -71,8 +71,8 @@ m3d.init = function() {
   // set camera attributes
   m3d.VIEW_ANGLE = 45;
   m3d.ASPECT = m3d.WIDTH / m3d.HEIGHT;
-  m3d.NEAR = 0.1;
-  m3d.FAR = 10000;
+  m3d.NEAR = 1;
+  m3d.FAR = 1000;
 
   // create a camera
   m3d.camera = new THREE.PerspectiveCamera(
@@ -85,10 +85,27 @@ m3d.init = function() {
   m3d.scene.add(m3d.camera);
 
   // the camera starts at 0,0,0 – so we pull back
-  m3d.camera.position.z = 300;
+  m3d.camera.position.x = 30;
+  m3d.camera.position.y = -50;
+  m3d.camera.position.z = 60;
+
+  // m3d.camera.rotation.x = 1.15;
+  // m3d.camera.rotation.y = 0;
+  // m3d.camera.position.set(1.5, 0, 0);
+
+
+  // m3d.camera.lookAt( m3d.scene.position );
   m3d.camera.lookAt( m3d.scene.position );
 
+  ///////////////////////////////////////////////////////////////////////////
+  // GUI HELPER
+  m3d.gui = new dat.GUI();
 
+  m3d.fl = m3d.gui.addFolder('camera.rotation');
+  m3d.fl.add(m3d.camera.rotation, 'x', -5, 5, 0.1).listen();
+  m3d.fl.add(m3d.camera.rotation, 'y', -5, 5, 0.1).listen();
+  m3d.fl.add(m3d.camera.rotation, 'z', -5, 5, 0.1).listen();
+  m3d.fl.open();
   ///////////////////////////////////////////////////////////////////////////
   // RENDERER
 
@@ -107,9 +124,9 @@ m3d.init = function() {
   // attach the DOM element supplied by renderer
   m3d.$container.append(m3d.renderer.domElement);
 
-  // // // add visual axes
-  // m3d.axes = THREE.AxisHelper(40);
-  // m3d.scene.add( m3d.axes );
+  // add visual axes
+  m3d.axes = new THREE.AxisHelper(20);
+  m3d.scene.add( m3d.axes );
 
 
   ///////////////////////////////////////////////////////////////////////////
@@ -158,6 +175,7 @@ m3d.init = function() {
   // These allow us to zoom in etc
 
   m3d.controls = new THREE.OrbitControls( m3d.camera, m3d.renderer.domElement);
+
 
   ///////////////////////////////////////////////////////////////////////////
   // GO
