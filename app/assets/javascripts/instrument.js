@@ -50,9 +50,14 @@ $('rect').on('mousedown', function() {
 
   var left = $(this).attr('x'); //offset().left;
   console.log(left);
+
+
   var tlMonster = new TimelineLite();
-  tlMonster.to(M.monster, 1, {x: left });
-  // M.monster.css('left', left);
+  tlMonster.to(M.monster, 0.1, { x: left, ease: Power0.easeIn })
+  .to(M.monster, 0.1, { y: '-= 10', yoyo: true, repeat: 2 })
+  .to(M.monster, 0.1, { y: '+= 10' });
+
+
 
 
 
@@ -62,7 +67,7 @@ $('rect').on('mousedown', function() {
   // console.log(freq);
   var noteString = $(this)[0].id;
   M.createOscillator(freq);
-  var note = noteString.slice(0, noteString.length - 1  );
+  var note = noteString.slice(0, noteString.length - 1);
   $('.piano__note').text(note);
 });
 
