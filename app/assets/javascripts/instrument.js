@@ -77,7 +77,7 @@ $('rect').on('mousedown', function() {
 
   var left = $(this).attr('x'); //offset().left;
   var width = $(this).attr('width');
-  var delta = ( M.monsterWidth - width ) / 3; // an approximation
+  var delta = ( M.monsterWidth - width ) / 2; // an approximation
   console.log(delta);
   // console.log(left);
 
