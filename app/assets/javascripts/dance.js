@@ -14,11 +14,7 @@ SC.initialize({
   client_id: MM.soundCloudID
 });
 
-SC.get('/tracks', {
-  q: 'chandelier', license: 'cc-by-sa'
-}).then(function(tracks) {
-  console.log(tracks);
-});
+
 
 // DOM elements
 MM.$monsterBody = $('.monster__body');
@@ -49,10 +45,19 @@ MM.getFrequencies = function() {
 };
 
 $('#dance-search').on('click', function() {
-  console.log('search');
-  // MM.getSTREAM = $.ajax({
-  //   url: MM.soundcloudURL
+  var input = $('#input-dance-search').val();
+  console.log(input);
+  // SC.get('/tracks', {
+  //   q: input, license: 'cc-by-sa'
+  // }).then(function(tracks) {
+  //   console.log(tracks);
   // });
+
+  $.ajax({
+    url: 'https://api.soundcloud.com/tracks?q=' + input + '&' + MM.clientID
+  }).done(function(response) {
+    console.log(response);
+  });
 
 
 });
