@@ -1,0 +1,19 @@
+.footer__container {
+  max-width: 100%;
+  text-align: center;
+  border-top: 1px solid $primary;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  padding: 1em 0;
+  background: #ffffff;
+
+}
+
+.footer__list-item {
+  @media screen and (min-width: 600px) {
+    display: inline;
+    padding: 0 1em;
+  }
+}

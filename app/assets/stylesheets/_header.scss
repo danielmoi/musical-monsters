@@ -6,6 +6,8 @@
   top: 0;
   width: 100%;
   height: 70px;
+  background: #ffffff;
+  z-index: 1;
   @media screen and (min-width: 600px) {
     height: 100px;
     text-align: center;
@@ -26,6 +28,8 @@
   position: fixed;
   top: 100px;
   width: 100%;
+  background: #ffffff;
+  z-index: 1;
   border-bottom: 1px solid $primary;
   @media screen and (min-width: 600px) {
     display: block;
