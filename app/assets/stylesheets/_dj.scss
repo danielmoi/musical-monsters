@@ -12,11 +12,18 @@
   padding: 1em 0;
 }
 .dj-controls__left,
-.dj-controls__right {
-  width: 35%;
+.dj-controls__right,
+.dj-controls__middle {
+  width: 30%;
   display: inline-block;
 }
 
+.dj-controls__left {
+  text-align: right;
+}
+.dj-controls__right {
+  text-align: left;
+}
 .dj-btn {
   display: inline-block;
   width: 40px;
@@ -27,4 +34,8 @@
 
   line-height: 40px;
   vertical-align: middle;
+}
+
+.dj-range {
+  padding: 0;
 }
