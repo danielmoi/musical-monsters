@@ -62,6 +62,9 @@ $('#soundcloud-search').on('click', function() {
       $div.append($a);
       $('.dance-tracks__list').append($div);
     }
+  }).error(function(error) {
+    console.log(error);
+    $('.dance-tracks__list').text(error.statusText);
   });
 
 
@@ -74,26 +77,34 @@ MM.spotifyID = 'e8dfe0810f5a48eaaa12dc0596eee83e';
 $('#spotify-search').on('click', function() {
   var input = $('#input-dance-search').val();
   $.ajax({
-    url: 'https://api.spotify.com/v1/search?q=' + input + '&type=track,artist'
+    url: 'https://api.spotify.com/v1/search?q=' + input + '&type=track'
   }).done(function(response) {
     console.log(response);
-    var arrArtists = response.artists.items;
     var arrTracks = response.tracks.items;
+    // console.log(arrTracks.length);
+    if (arrTracks.length === 0) {
+      console.log('empty');
+      $('.dance-tracks__list').text('Not found');
+      return;
+    }
     $('.dance-tracks__list').empty();
 
     for (var j = 0; j < 5; j++) {
       var streamURL = arrTracks[j].preview_url;
       $div = $('<div>');
       $a = $('<a>');
-      $a.text(arrTracks[i].name);
+      $a.text(arrTracks[j].name);
       $a.attr('data-stream-url', streamURL);
       $div.append($a);
       $('.dance-tracks__list').append($div);
     }
+  }).error(function(error) {
+    console.log(error);
+    $('.dance-tracks__list').text(error.statusText);
   });
 });
 
-$('.dance-results__container').on('click', 'a[data-stream-url]', function(e){
+$('.dance-results__container').on('click', 'a[data-stream-url]', function(e) {
   e.preventDefault();
   var url = $(this).attr('data-stream-url');
   MM.audioElement.src = url + '?' + MM.clientID;
@@ -213,11 +224,16 @@ MM.moveMonster = function() {
     // TweenLite.to(['.monster__body', '.monster__arm-left', '.monster__arm-right'], 0, {top: MM.averageVolume / 2});
     $('.monster__container').css('top', 128 - MM.averageVolume);
     $('.monster__hat').css('top', -20);
-    $('.monster__arm-left').css({'top': -20, 'transform': 'rotate(10deg)'});
-    $('.monster__arm-right').css({'top': 20, 'transform': 'rotate(-10deg)'});
+    $('.monster__arm-left').css({
+      'top': -20,
+      'transform': 'rotate(10deg)'
+    });
+    $('.monster__arm-right').css({
+      'top': 20,
+      'transform': 'rotate(-10deg)'
+    });
 
-  }
-  else {
+  } else {
     // $('.monster__body').css('bottom', 0);
     $('.monster__container').css('top', 128 - MM.averageVolume);
     $('.monster__hat').css('top', 0);
