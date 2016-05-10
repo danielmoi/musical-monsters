@@ -56,12 +56,19 @@ MM.processBuffers = function(arr) {
     MM.arrSourceNodes[i].connect(MM.arrGainNodes[i]);
     MM.arrGainNodes[i].connect(MM.audioContext.destination);
     MM.arrGainNodes[i].gain.value = 0;
+    MM.arrSourceNodes[i].loop = true;
     MM.arrSourceNodes[i].start(0);
   }
 };
 
-$('#start-spinning').on('click',function() {
+$('#start-spinning').on('click', function() {
   MM.arrGainNodes[0].gain.value = 1;
+});
+
+$('#stop-spinning').on('click', function() {
+  for (var i = 0; i < MM.arrGainNodes.length; i++) {
+    MM.arrGainNodes[i].gain.value = 0;
+  }
 });
 
 // console.log(MM.arrGainNodes[0].gain.value);
