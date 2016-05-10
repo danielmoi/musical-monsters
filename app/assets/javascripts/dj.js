@@ -2,7 +2,7 @@ var MM = MM || {};
 
 MM.audioContext = new AudioContext();
 
-MM.arrTracks = ['/sounds/loop-1.wav', '/sounds/loop-2.wav'];
+MM.arrTracks = ['/sounds/loop-8.mp3', '/sounds/loop-7.mp3'];
 MM.arrBuffers = [];
 MM.countLoadComplete = 0;
 
