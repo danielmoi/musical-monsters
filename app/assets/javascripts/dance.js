@@ -91,9 +91,10 @@ $('#spotify-search').on('click', function() {
 
     for (var j = 0; j < 5; j++) {
       var streamURL = arrTracks[j].preview_url;
+      var artist = arrTracks[j].artists[0].name;
       $div = $('<div>');
       $a = $('<a>');
-      $a.text(arrTracks[j].name);
+      $a.text(arrTracks[j].name + '(' + artist + ')');
       $a.attr('data-stream-url', streamURL);
       $div.append($a);
       $('.dance-tracks__list').append($div);
