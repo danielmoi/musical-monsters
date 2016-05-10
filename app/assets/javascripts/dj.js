@@ -66,20 +66,12 @@ MM.processBuffers = function(arr) {
     MM.arrSourceNodes[i].connect(MM.arrGainNodes[i]);
     MM.arrGainNodes[i].connect(MM.audioContext.destination);
   }
-  MM.arrGainNodes[1].gain.value = 0;
+  MM.arrGainNodes[3].gain.value = 0;
   MM.arrSourceNodes[0].start(0);
-  MM.arrSourceNodes[1].start(0);
+  MM.arrSourceNodes[3].start(0);
 };
 
-$('#start-spinning').on('click', function() {
-  MM.start();
-});
 
-$('#stop-spinning').on('click', function() {
-  MM.countLoadComplete = 0;
-  MM.arrSourceNodes[0].stop(0);
-  MM.arrSourceNodes[1].stop(0);
-});
 
 MM.crossFade = function(el) {
   // console.log(el.value);
@@ -102,11 +94,31 @@ MM.crossFade = function(el) {
 
   var gain1 = Math.cos((1.0 - x) * 0.5 * Math.PI);
   console.log(gain1);
-  MM.arrGainNodes[1].gain.value = gain1;
+  MM.arrGainNodes[3].gain.value = gain1;
 };
 
 
 $('.dj-range').on('input', function() {
   // MM.crossFade($(this));
   MM.crossFade(this);
+});
+
+
+MM.rightArm = $('#right-arm');
+MM.leftArm = $('#left-arm');
+
+MM.tlRA = new TimelineLite({ paused: true });
+MM.tlRA.to(MM.rightArm, 0.2, { x: '-25%', ease: Power0.easeIn, repeat: 2, yoyo: true })
+.to(MM.rightArm, 0.2, { x: '0%', ease: Power0.easeIn });
+
+
+$('#start-spinning').on('click', function() {
+  MM.start();
+  MM.tlRA.restart();
+});
+
+$('#stop-spinning').on('click', function() {
+  MM.countLoadComplete = 0;
+  MM.arrSourceNodes[0].stop(0);
+  MM.arrSourceNodes[3].stop(0);
 });
