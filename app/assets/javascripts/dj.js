@@ -71,5 +71,12 @@ $('#stop-spinning').on('click', function() {
   }
 });
 
+MM.crossFade = function(val) {
+  console.log(val);
+};
+
+$('.dj-range').on('input', function() {
+  MM.crossFade($(this).val());
+});
 // console.log(MM.arrGainNodes[0].gain.value);
 // MM.arrGainNodes[0].gain.value;
