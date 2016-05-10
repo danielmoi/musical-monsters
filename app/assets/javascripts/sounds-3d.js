@@ -85,27 +85,34 @@ m3d.init = function() {
   m3d.scene.add(m3d.camera);
 
   // the camera starts at 0,0,0 – so we pull back
-  m3d.camera.position.x = -20;
-  m3d.camera.position.y = -50;
-  m3d.camera.position.z = 60;
+  // m3d.camera.position.x = -20;
+  // m3d.camera.position.y = -50;
+  // m3d.camera.position.z = 60;
+  // m3d.camera.position.set(40, -10, 50);
+  m3d.camera.position.set(20, 10, 45);
+  // m3d.camera.up = new THREE.Vector3(10,10,11);
+  // m3d.camera.position.set( new THREE.Vector3(1.21, 7.5, 76.2));
 
   // m3d.camera.rotation.x = 1.15;
   // m3d.camera.rotation.y = 0;
   // m3d.camera.position.set(1.5, 0, 0);
+  // m3d.camera.rotation.set(0.07, 0.015, -0.002);
 
-
+  // Not using this
   // m3d.camera.lookAt( m3d.scene.position );
-  m3d.camera.lookAt( m3d.scene.position );
+
+  // This is too early on in the code for this to be executed
+  // m3d.camera.lookAt(new THREE.Vector3(10,15,-20));
 
   ///////////////////////////////////////////////////////////////////////////
   // GUI HELPER
-  m3d.gui = new dat.GUI();
-
-  m3d.fl = m3d.gui.addFolder('camera.rotation');
-  m3d.fl.add(m3d.camera.rotation, 'x', -5, 5, 0.1).listen();
-  m3d.fl.add(m3d.camera.rotation, 'y', -5, 5, 0.1).listen();
-  m3d.fl.add(m3d.camera.rotation, 'z', -5, 5, 0.1).listen();
-  m3d.fl.open();
+  // m3d.gui = new dat.GUI();
+  //
+  // m3d.fl = m3d.gui.addFolder('camera.rotation');
+  // m3d.fl.add(m3d.camera.rotation, 'x', -5, 5, 0.1).listen();
+  // m3d.fl.add(m3d.camera.rotation, 'y', -5, 5, 0.1).listen();
+  // m3d.fl.add(m3d.camera.rotation, 'z', -5, 5, 0.1).listen();
+  // m3d.fl.open();
   ///////////////////////////////////////////////////////////////////////////
   // RENDERER
 
@@ -178,6 +185,9 @@ m3d.init = function() {
 
   m3d.controls = new THREE.OrbitControls( m3d.camera, m3d.renderer.domElement);
 
+  ///////////////////////////////////////////////////////////////////////////
+  // This is repositioning the camera. It has to go here (not too much early in code)
+  m3d.camera.lookAt(new THREE.Vector3(10,15,-20));
 
   ///////////////////////////////////////////////////////////////////////////
   // GO
