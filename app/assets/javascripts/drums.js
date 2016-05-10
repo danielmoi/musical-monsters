@@ -149,4 +149,7 @@ $(document).on('keydown', function(e) {
   if (e.keyCode === 87) {
     $('#cymbal').trigger('click');
   }
+  if (e.keyCode === 70) {
+    // $('#fini').trigger('click');
+  }
 });
