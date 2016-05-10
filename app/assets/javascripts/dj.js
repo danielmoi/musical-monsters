@@ -2,75 +2,40 @@ var MM = MM || {};
 
 MM.audioContext = new AudioContext();
 
-MM.BufferLoader = function(context, urlList, callback) {
-  this.context = context;
-  this.urlList = urlList;
-  this.onload = callback;
-  this.bufferList = [];
-  this.loadCount = 0;
-};
+MM.arrFiles = ['/sounds/loop-1.wav', '/sounds/loop-2.wav'];
+MM.arrBuffers = [];
+MM.countLoadComplete = 0;
 
-MM.BufferLoader.prototype.loadBuffer = function(url, index) {
-  // Load buffer asynchronously
+MM.bufferLoader = function(url, index) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
   request.responseType = 'arraybuffer';
-
-  var loader = this;
-
   request.onload = function() {
-
-    // Asynchronously decode the audio file data in request.response
-    loader.context.decodeAudioData(
+    MM.audioContext.decodeAudioData(
       request.response,
       function(buffer) {
         if (!buffer) {
           console.log('error decoding file data: ' + url);
           return;
         }
-        loader.bufferList[index] = buffer;
-        if (++loader.loadCount == loader.urlList.length)
-          loader.onload(loader.bufferList);
+        MM.arrBuffers[index] = buffer;
+        MM.countLoadComplete += 1;
+        if (MM.countLoadComplete === MM.arrBuffers.length) {
+          console.log('all buffers finished loading!');
+          MM.processBuffers(MM.arrBuffers);
+        }
       },
       function(error) {
-        console.error('decodeAudioData error', error);
+        console.log('decodeAudioData error: ' + error);
       }
     );
   };
-
   request.onerror = function() {
-    console.log('BufferLoader: XHR error');
+    console.log('bufferLoader error: XHR error');
   };
-
   request.send();
 };
 
-MM.BufferLoader.prototype.load = function() {
-  for (var i = 0; i < this.urlList.length; ++i) {
-    this.loadBuffer(this.urlList[i], i);
-  }
-};
-
-
-
-
-MM.loadingComplete = function(bufferList) {
-  // Create two sources and play them both together.
-  var source1 = MM.audioContext.createBufferSource();
-  var source2 = MM.audioContext.createBufferSource();
-  source1.buffer = bufferList[0];
-  source2.buffer = bufferList[1];
-
-  source1.connect(MM.audioContext.destination);
-  source2.connect(MM.audioContext.destination);
-  source1.start(0);
-  source2.start(0);
-};
-
-MM.bufferLoader = new MM.BufferLoader(
-  MM.audioContext, ['/sounds/loop-1.wav', '/sounds/loop-2.wav'],
-  MM.loadingComplete
-
-);
-
-MM.bufferLoader.load();
+for (var i = 0; i < MM.arrFiles.length; i++) {
+  MM.bufferLoader(MM.arrFiles[i], i);
+}
