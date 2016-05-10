@@ -140,7 +140,13 @@ m3d.init = function() {
   // CREATE CUBES
   m3d.arrCubes = [];
   m3d.textureLoader = new THREE.TextureLoader();
-  m3d.texture1 = m3d.textureLoader.load('/images/monster-square.png');
+  m3d.texture1 = m3d.textureLoader.load('/images/monster-3d.png');
+  //   function(texture) {
+  //     m3d.material1 = new THREE.MeshLambertMaterial({
+  //       map: m3d.texture1
+  //     });
+  //   }
+  // );
   // m3d.material1 = new THREE.MeshBasicMaterial( { map: m3d.texture1 });
   // m3d.faceMaterial = new THREE.MeshFaceMaterial( m3d.material1 );
 
@@ -150,8 +156,11 @@ m3d.init = function() {
     m3d.arrCubes[i] = [];
     for (var y = 0; y < 30; y += 2) {
       var geometry = new THREE.CubeGeometry(1.5, 1.5, 1.5);
+      // var material = new THREE.MeshLambertMaterial({
+      //   // color: 0x00ff00
+      //   map: m3d.texture1
+      // });
       var material = new THREE.MeshLambertMaterial({
-        // color: 0x00ff00
         map: m3d.texture1
       });
       m3d.arrCubes[i][j] = new THREE.Mesh(geometry, material);
