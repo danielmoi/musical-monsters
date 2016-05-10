@@ -74,19 +74,32 @@ $('#stop-spinning').on('click', function() {
   MM.arrSourceNodes[1].stop(0);
 });
 
-MM.crossFade = function(val) {
-  console.log(typeof val);
-  var num = parseInt(val);
-  MM.arrGainNodes[0].gain.value = Math.cos(num * 0.5 * Math.PI);
-  MM.arrGainNodes[1].gain.value = Math.cos( (1.0 - num) * 0.5 * Math.PI );
-  // var gain1 = Math.cos(x * 0.5*Math.PI);
-  // var gain2 = Math.cos((1.0 - x) * 0.5*Math.PI);
+MM.crossFade = function(el) {
+  // console.log(el.value);
+  var num = parseInt(el.value);
+  // var max = el.attr('max');
+  var max = parseInt(el.max);
+  // console.log(max);
+  // console.log('val: ' + val + ' typeof: ' + typeof val);
+  // console.log('val: ' + val() + ' typeof: ' + typeof val);
+
+
+  console.log('num: ' + num + ' typeof: ' + typeof num);
+  console.log('max: ' + max + ' typeof: ' + typeof max);
+
+  var x = num / max;
+
+  var gain0 = Math.cos(x * 0.5 * Math.PI);
+  console.log(gain0);
+  MM.arrGainNodes[0].gain.value = gain0;
+
+  var gain1 = Math.cos((1.0 - x) * 0.5 * Math.PI);
+  console.log(gain1);
+  MM.arrGainNodes[1].gain.value = gain1;
 };
 
 
 $('.dj-range').on('input', function() {
-  MM.crossFade($(this).val());
-
+  // MM.crossFade($(this));
+  MM.crossFade(this);
 });
-// console.log(MM.arrGainNodes[0].gain.value);
-// MM.arrGainNodes[0].gain.value;
