@@ -106,10 +106,32 @@ var movePedal = function() {
 
 /////////////////////////////////////////////////////////////////////////////
 
+var tlFlourish = new TimelineLite({
+  paused: true
+});
+tlFlourish.to([stickLeft, stickRight], 0.4, {
+  rotation: 720,
+  transformOrigin: '50% 50%',
+  ease: Power0.easeIn
+});
+tlFlourish.to([stickLeft, stickRight], 0.2, {
+  y: '-250',
+  ease: Power0.easeIn,
+  repeat: 1,
+  yoyo: true
+}, '-=0.4');
+
+var flourish = function() {
+  tlFlourish.restart();
+};
+
+/////////////////////////////////////////////////////////////////////////////
+
 $('#hi-hat').on('click', moveStickR);
 $('#snare').on('click', moveStickLdown);
 $('#bass').on('click', movePedal);
 $('#cymbal').on('click', moveStickLup);
+$('#fini').on('click', flourish);
 
 $(document).on('keydown', function(e) {
   // S key
