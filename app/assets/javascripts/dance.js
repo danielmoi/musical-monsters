@@ -142,7 +142,6 @@ MM.getStream = $.ajax({
   MM.analyser.connect(MM.javascriptNode);
   MM.javascriptNode.connect(MM.audioContext.destination);
 
-  $('#play').trigger('click');
 
 });
 

@@ -9,4 +9,4 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += %w( underscore.min.js dance.js play.js three.js three.min.js orbitControls.js sounds-3d.js axisHelper.js datGui.js instrument.js )
+Rails.application.config.assets.precompile += %w( underscore.min.js dance.js piano.js three.js three.min.js orbitControls.js sounds-3d.js axisHelper.js datGui.js drums.js )
