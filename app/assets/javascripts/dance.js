@@ -80,16 +80,6 @@ $('#spotify-search').on('click', function() {
     var arrArtists = response.artists.items;
     var arrTracks = response.tracks.items;
     $('.dance-tracks__list').empty();
-    $('.dance-artists__list').empty();
-
-
-    for (var i = 0; i < 5; i++) {
-      $div = $('<div>');
-      $a = $('<a>');
-      $a.text(arrArtists[i].name);
-      $div.append($a);
-      $('.dance-artists__list').append($div);
-    }
 
     for (var j = 0; j < 5; j++) {
       var streamURL = arrTracks[j].preview_url;
