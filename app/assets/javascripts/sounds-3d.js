@@ -184,6 +184,7 @@ m3d.init = function() {
   // These allow us to zoom in etc
 
   m3d.controls = new THREE.OrbitControls( m3d.camera, m3d.renderer.domElement);
+  m3d.controls.center.set(10,15,-20);
 
   ///////////////////////////////////////////////////////////////////////////
   // This is repositioning the camera. It has to go here (not too much early in code)
