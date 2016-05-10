@@ -62,6 +62,37 @@ $('#soundcloud-search').on('click', function() {
 
 });
 
+MM.spotifyID = 'e8dfe0810f5a48eaaa12dc0596eee83e';
+
+$('#spotify-search').on('click', function() {
+  var input = $('#input-dance-search').val();
+  $.ajax({
+    url: 'https://api.spotify.com/v1/search?q=' + input + '&type=track,artist'
+  }).done(function(response) {
+    console.log(response);
+    var arrArtists = response.artists.items;
+    var arrTracks = response.tracks.items;
+
+    for (var i = 0; i < 5; i++) {
+      $div = $('<div>');
+      $a = $('<a>');
+      $a.text(arrArtists[i].name);
+      $div.append($a);
+      $a.attr('href', '#');
+      $('.dance-artists__list').append($div);
+    }
+
+    for (var j = 0; j < 5; j++) {
+      $div = $('<div>');
+      $a = $('<a>');
+      $a.text(arrTracks[i].name);
+      $div.append($a);
+      $a.attr('href', '#');
+      $('.dance-tracks__list').append($div);
+    }
+  });
+});
+
 MM.getStream = $.ajax({
   url: MM.soundcloudURL + "?" + MM.clientID
 }).done(function(response) {
