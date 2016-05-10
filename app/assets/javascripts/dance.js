@@ -46,17 +46,22 @@ MM.getFrequencies = function() {
 
 $('#soundcloud-search').on('click', function() {
   var input = $('#input-dance-search').val();
-  console.log(input);
-  // SC.get('/tracks', {
-  //   q: input, license: 'cc-by-sa'
-  // }).then(function(tracks) {
-  //   console.log(tracks);
-  // });
 
   $.ajax({
     url: 'https://api.soundcloud.com/tracks?q=' + input + '&' + MM.clientID
   }).done(function(response) {
     console.log(response);
+    var arrTracks = response;
+    $('.dance-tracks__list').empty();
+    for (var i = 0; i < 5; i++) {
+      var streamURL = arrTracks[i].stream_url;
+      $div = $('<div>');
+      $a = $('<a>');
+      $a.text(arrTracks[i].title);
+      $a.attr('data-stream-url', streamURL);
+      $div.append($a);
+      $('.dance-tracks__list').append($div);
+    }
   });
 
 
@@ -72,13 +77,15 @@ $('#spotify-search').on('click', function() {
     console.log(response);
     var arrArtists = response.artists.items;
     var arrTracks = response.tracks.items;
+    $('.dance-tracks__list').empty();
+    $('.dance-artists__list').empty();
+
 
     for (var i = 0; i < 5; i++) {
       $div = $('<div>');
       $a = $('<a>');
       $a.text(arrArtists[i].name);
       $div.append($a);
-      $a.attr('href', '#');
       $('.dance-artists__list').append($div);
     }
 
@@ -87,10 +94,17 @@ $('#spotify-search').on('click', function() {
       $a = $('<a>');
       $a.text(arrTracks[i].name);
       $div.append($a);
-      $a.attr('href', '#');
       $('.dance-tracks__list').append($div);
     }
   });
+});
+
+$('.dance-results__container').on('click', 'a[data-stream-url]', function(e){
+  e.preventDefault();
+  var url = $(this).attr('data-stream-url');
+  MM.audioElement.src = url + '?' + MM.clientID;
+
+
 });
 
 MM.getStream = $.ajax({
