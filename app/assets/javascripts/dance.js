@@ -48,7 +48,7 @@ $('#soundcloud-search').on('click', function() {
   var input = $('#input-dance-search').val();
 
   $.ajax({
-    url: 'https://api.soundcloud.com/tracks?q=' + input + '&' + MM.clientID
+    url: 'https://api.soundcloud.com/artist?q=' + input + '&' + MM.clientID
   }).done(function(response) {
     console.log(response);
     var arrTracks = response;
@@ -63,6 +63,8 @@ $('#soundcloud-search').on('click', function() {
       $('.dance-tracks__list').append($div);
     }
   });
+
+
 
 
 });
@@ -90,9 +92,11 @@ $('#spotify-search').on('click', function() {
     }
 
     for (var j = 0; j < 5; j++) {
+      var streamURL = arrTracks[j].preview_url;
       $div = $('<div>');
       $a = $('<a>');
       $a.text(arrTracks[i].name);
+      $a.attr('data-stream-url', streamURL);
       $div.append($a);
       $('.dance-tracks__list').append($div);
     }
