@@ -60,7 +60,7 @@ MM.loadingComplete = function(bufferList) {
   var gainNode1 = MM.audioContext.createGain();
 
   var source2 = MM.audioContext.createBufferSource();
-  var gainNode
+
   source1.buffer = bufferList[0];
   source2.buffer = bufferList[1];
 

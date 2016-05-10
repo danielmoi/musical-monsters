@@ -36,6 +36,33 @@ MM.bufferLoader = function(url, index) {
   request.send();
 };
 
+// Load buffers as page loads
 for (var i = 0; i < MM.arrFiles.length; i++) {
   MM.bufferLoader(MM.arrFiles[i], i);
 }
+
+MM.arrGainNodes = [];
+MM.arrSourceNodes = [];
+
+MM.processBuffers = function(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    MM.arrSourceNodes[i] = MM.audioContext.createBufferSource();
+    MM.arrGainNodes[i] = MM.audioContext.createGain();
+    MM.arrSourceNodes[i].buffer = MM.arrBuffers[i];
+
+    // Don't connect source directly to destination
+    // MM.arrSourceNodes[i].connect(MM.audioContext.destination);
+
+    MM.arrSourceNodes[i].connect(MM.arrGainNodes[i]);
+    MM.arrGainNodes[i].connect(MM.audioContext.destination);
+    MM.arrGainNodes[i].gain.value = 0;
+    MM.arrSourceNodes[i].start(0);
+  }
+};
+
+$('#start-spinning').on('click',function() {
+  MM.arrGainNodes[0].gain.value = 1;
+});
+
+// console.log(MM.arrGainNodes[0].gain.value);
+// MM.arrGainNodes[0].gain.value;
