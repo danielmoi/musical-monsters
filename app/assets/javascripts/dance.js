@@ -9,13 +9,6 @@ MM.clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
 MM.soundcloudURL = 'https://api.soundcloud.com/tracks/293';
 MM.trackPermalinkUrl = "https://soundcloud.com/the-outsider/the-outsider-death-by-melody";
 
-
-SC.initialize({
-  client_id: MM.soundCloudID
-});
-
-
-
 // DOM elements
 MM.$monsterBody = $('.monster__body');
 MM.$monsterHat = $('.monster__hat');
@@ -48,7 +41,7 @@ $('#soundcloud-search').on('click', function() {
   var input = $('#input-dance-search').val();
 
   $.ajax({
-    url: 'https://api.soundcloud.com/artist?q=' + input + '&' + MM.clientID
+    url: 'https://api.soundcloud.com/tracks?q=' + input + '&' + MM.clientID
   }).done(function(response) {
     console.log(response);
     var arrTracks = response;
@@ -149,6 +142,8 @@ MM.getStream = $.ajax({
   MM.analyser.connect(MM.javascriptNode);
   MM.javascriptNode.connect(MM.audioContext.destination);
 
+  $('#play').trigger('click');
+
 });
 
 MM.getAverageVolume = function(arr) {
@@ -244,6 +239,9 @@ MM.moveMonster = function() {
   }
 };
 /////////////////////////////////////////////////////////////////////////////
+$(document).ready(function() {
+
+});
 
 // Event Handlers
 $('#play').on('click', function() {
