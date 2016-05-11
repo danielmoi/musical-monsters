@@ -1,4 +1,4 @@
-.tooltip {
+.snapshot__tooltip {
   opacity: 0;
   position: absolute;
   display: inline-block;
@@ -12,15 +12,19 @@
   top: 0;
 }
 
-.line1 {
+.snapshot__tooltip--line1 {
   font-style: italic;
 }
 
-.line2 {
+.snapshot__tooltip--line2 {
   font-size: 0.8em;
 }
 
-.line2-details {
+.snapshot__tooltip--line2-details {
   font-weight: 900;
   font-size: 1rem;
+}
+
+.snapshot-svg {
+  border-bottom: 1px solid white;
 }

@@ -89,7 +89,7 @@ var drawStuff = function() {
 
 
 
-  var width = 800;
+  var width = 700;
   var height = 400;
 
   var y = d3.scale
@@ -100,13 +100,13 @@ var drawStuff = function() {
 
   console.log(y(100));
 
-  var chart = d3.select('#blob-svg')
+  var chart = d3.select('#snapshot-svg')
   .attr('width', width)
   .attr('height', height);
 
-  var tooltip = d3.select('.tooltip');
-  var line1 = d3.select('.line1');
-  var line2 = d3.select('.line2-details');
+  var tooltip = d3.select('.snapshot__tooltip');
+  var line1 = d3.select('.snapshot__tooltip--line1');
+  var line2 = d3.select('.snapshot__tooltip--line2-details');
 
   var barWidth = width / MM.arrFrequencyData.length;
 

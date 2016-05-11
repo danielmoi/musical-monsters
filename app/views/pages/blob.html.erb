@@ -1,17 +1,21 @@
 <h2 class="main__title">Blobs</h2>
 
-<button id="play" class="btn">Play</button>
-<button id="stop" class="btn">Stop</button>
-<button id="snapshot" class="btn">Snapshot</button>
 
-
-<div class="tooltip">
-  <div class="line1"></div>
-  <div class="line2">Input signal: <span class="line2-details"></span></div>
+<div class="btn-container">
+  <button id="play" class="btn">Play</button>
+  <button id="stop" class="btn">Stop</button>
+  <button id="snapshot" class="btn">Snapshot</button>
 </div>
 
-<svg id="blob-svg"></svg>
-<!-- <div class="chart"></div> -->
+
+  <div class="snapshot__tooltip">
+    <div class="snapshot__tooltip--line1"></div>
+    <div class="snapshot__tooltip--line2">Input signal: <span class="snapshot__tooltip--line2-details"></span></div>
+  </div>
+
+  <div class="snapshot-svg__container">
+    <svg id="snapshot-svg" class="snapshot-svg" width="700" height="400"></svg>
+  </div>
 
 <%= javascript_include_tag 'd3.v3.min.js' %>
 <%= javascript_include_tag 'blob.js' %>
