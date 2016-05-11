@@ -152,6 +152,10 @@ $('#start-spinning').on('click', function() {
 
 });
 
+$('#mouth').on('click', function() {
+  MM.tlMouth.stop();
+});
+
 $('#stop-spinning').on('click', function() {
   MM.countLoadComplete = 0;
   MM.arrGainNodes[MM.currentSlowTrack].gain.value = 0;
