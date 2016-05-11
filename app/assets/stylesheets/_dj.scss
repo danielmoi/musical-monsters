@@ -2,11 +2,9 @@
   height: 50vh;
   text-align: center;
 }
-
 .dj__svg {
   height: 100%;
 }
-
 .dj-controls__container {
   text-align: center;
   padding: 1em 0;
@@ -17,7 +15,6 @@
   width: 30%;
   display: inline-block;
 }
-
 .dj-controls__left {
   text-align: right;
 }
@@ -31,11 +28,27 @@
   border: 1px solid $primary;
   border-radius: 50%;
   text-align: center;
-
   line-height: 40px;
   vertical-align: middle;
 }
-
 .dj-range {
   padding: 0;
+}
+input[type=radio] {
+  display: none;
+}
+.label-dj {
+  border-radius: 50%;
+  border: 1px solid $primary;
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+input[type="radio"]:checked+label {
+  font-weight: bold;
+  background: #93278f;
+  color: #ffffff;
 }
