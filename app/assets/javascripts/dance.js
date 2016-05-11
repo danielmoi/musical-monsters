@@ -213,7 +213,7 @@ MM.drawVolume = function() {
   // MM.canvasVolContext.fillRect(50, 100 - MM.averageVolume / 2, 75, MM.averageVolume / 2);
   MM.canvasVolContext.fillRect(
     width / 2,
-    120 - (MM.averageVolume / 2), 
+    120 - (MM.averageVolume / 2),
     width,
     MM.averageVolume / 2
   );

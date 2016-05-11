@@ -1,7 +1,7 @@
 .header__container {
   max-width: 100%;
   text-align: center;
-  border-bottom: 1px solid $primary;
+  border-bottom: 1px solid white;
   position: fixed;
   top: 0;
   width: 100%;
@@ -16,6 +16,7 @@
 .header__title {
   margin: 0;
   line-height: 70px;
+  color: black;
   @media screen and (min-width: 600px) {
     line-height: 100px;
   }
@@ -48,6 +49,7 @@
   display: block;
   padding: 1em 0;
   font-size: 1em;
+  color: black;
   @media screen and (min-width: 600px) {
     display: inline;
     padding: 0 1em;
