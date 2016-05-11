@@ -86,6 +86,8 @@ $('#snapshot').on('click', function() {
 
 var drawStuff = function() {
 
+
+
   var width = 800;
   var height = 400;
 
@@ -100,6 +102,10 @@ var drawStuff = function() {
   var chart = d3.select('#blob-svg')
   .attr('width', width)
   .attr('height', height);
+
+  var div = d3.select('body').append('div')
+  .attr('class', 'tooltip')
+  .style('opacity', 1);
 
   var barWidth = width / MM.arrFrequencyData.length;
 
@@ -119,4 +125,14 @@ var drawStuff = function() {
   .attr('y', function(d) { return y(d) + 3; })
   .attr('dy', '0.75em')
   .text(function (d) { return d; });
+
+  bar.on('mouseover', function(data) {
+    console.log(data);
+    d3.select(this)
+    .style('fill', 'tomato');
+  })
+  .on('mouseout', function(data) {
+    d3.select(this)
+    .style('fill', '#000000');
+  });
 };
