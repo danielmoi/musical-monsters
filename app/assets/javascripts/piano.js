@@ -45,7 +45,7 @@ M.audioContext = new AudioContext();
 M.currentOsc = '';
 M.currentGain = '';
 
-M.createOscillator = function(id) {
+M.createOscillator = function(freq) {
   var oscillator = M.audioContext.createOscillator();
   var gainNode = M.audioContext.createGain();
   if (M.currentOsc) {
@@ -56,7 +56,7 @@ M.createOscillator = function(id) {
   M.currentOsc = oscillator;
 
   oscillator.type = 'sine';
-  oscillator.frequency.value = id;
+  oscillator.frequency.value = freq;
   M.currentOsc = oscillator;
   gainNode.gain.value = 1;
   M.currentGain = gainNode;
@@ -78,7 +78,7 @@ $('rect').on('mousedown', function() {
   var left = $(this).attr('x'); //offset().left;
   var width = $(this).attr('width');
   var delta = ( M.monsterWidth - width ) / 2; // an approximation
-  console.log(delta);
+  // console.log(delta);
   // console.log(left);
 
   var tlMonster = new TimelineLite();
@@ -98,10 +98,14 @@ $('rect').on('mousedown', function() {
   var freq = M.arrNotes[$(this)[0].id];
   // console.log(freq);
   var noteString = $(this)[0].id;
-  M.createOscillator(freq);
   var note = noteString.slice(0, noteString.length - 1);
-  $('.piano__note').text(note);
+  M.generateNote(freq, note);
 });
+
+M.generateNote = function(freq, note) {
+  M.createOscillator(freq);
+  $('.piano__note').text(note);
+};
 
 
 
@@ -111,6 +115,10 @@ $('rect').on('mouseup', function() {
 
 $(document).on('keydown', function(e){
   if (e.keyCode === 65) {
-    console.log('a');
+    M.generateNote(M.arrNotes.C3, 'C');
   }
+});
+
+$(document).on('keyup', function() {
+  M.currentGain.gain.value = 0;
 });
