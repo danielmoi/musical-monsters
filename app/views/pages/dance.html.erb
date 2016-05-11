@@ -5,29 +5,37 @@
   <canvas id="canvas__volume" class="canvas__volume"></canvas>
 </div>
 
-<div class="dance-search__container">
-  <input id="input-dance-search" type="text" placeholder="Type in a song name" value="chandelier">
-  <label for=""></label>
-  <button id="soundcloud-search" class="btn btn-soundcloud">SoundCloud</button>
-  <button id="spotify-search" class="btn btn-spotify">Spotify</button>
-  <div id="play" class="btn">Play</div>
-  <div id="pause" class="btn">Pause</div>
-</div>
+<div class="dance__container">
+  <div class="dance-search__container">
+    <input id="input-dance-search" type="text" placeholder="Type in a song name" value="chandelier">
+    <label for=""></label>
 
-<div class="dance-results__container">
-  <div class="dance-tracks__container">
-    <h3>Tracks</h3>
-    <ul class="dance-tracks__list"></ul>
+
+  <div class="dance-btn__container">
+    <button id="soundcloud-search" class="btn btn-soundcloud">SoundCloud</button>
+    <button id="spotify-search" class="btn btn-spotify">Spotify</button>
   </div>
-</div>
 
+  <div class="dance-btn__container">
+    <div id="play" class="btn">Play</div>
+    <div id="pause" class="btn">Pause</div>
+  </div>
 
+    <div class="dance-results__container">
+      <div class="dance-tracks__container">
+        <h3>Tracks</h3>
+        <ul class="dance-tracks__list"></ul>
+      </div>
+    </div>
+  </div>
 
 <div class="monster__container">
   <%= image_tag 'm-body.png', :class => 'monster__body' %>
   <%= image_tag 'm-hat.png', :class => 'monster__hat' %>
   <%= image_tag 'm-left.png', :class => 'monster__arm-left' %>
   <%= image_tag 'm-right.png', :class => 'monster__arm-right' %>
+</div>
+
 </div>
 
 <%= javascript_include_tag 'dance.js' %>
