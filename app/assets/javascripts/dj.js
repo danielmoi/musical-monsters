@@ -129,6 +129,11 @@ $('.dj-range').on('input', function() {
 
 MM.rightArm = $('#right-arm');
 MM.leftArm = $('#left-arm');
+MM.mouth = $('#mouth');
+
+MM.tlMouth = new TimelineLite({ paused: true });
+MM.tlMouth.to(MM.mouth, 0.1, { rotation: -10, transformOrigin: '50% 50%', ease: Power0.easeIn, repeat: -1, yoyo: true })
+.to(MM.mouth, 0.1, { rotation: 10, transformOrigin: '50% 50%', ease: Power0.easeIn, repeat: -1, yoyo: true }, 0.1);
 
 MM.tlRA = new TimelineLite({ paused: true });
 MM.tlRA.to(MM.rightArm, 0.2, { x: '-10%', ease: Power0.easeIn, repeat: -1, yoyo: true });
@@ -141,6 +146,7 @@ $('#start-spinning').on('click', function() {
   // MM.start();
   // MM.tlRA.restart();
   MM.tlLA.restart();
+  MM.tlMouth.restart();
   MM.arrGainNodes[MM.currentSlowTrack].gain.value = MM.gainSlow;
   MM.arrGainNodes[MM.currentFastTrack].gain.value = MM.gainFast;
 
@@ -155,6 +161,7 @@ $('#stop-spinning').on('click', function() {
   // MM.arrSourceNodes[3].stop(0);
   MM.tlRA.stop();
   MM.tlLA.stop();
+  MM.tlMouth.stop();
 });
 
 $('input[name=loops-slow]').on('change', function(){
