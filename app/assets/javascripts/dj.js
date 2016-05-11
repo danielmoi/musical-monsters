@@ -13,6 +13,9 @@ MM.arrTracks = [
 MM.arrBuffers = [];
 MM.countLoadComplete = 0;
 
+MM.currentSlowTrack = 0;
+MM.currentFastTrack = 3;
+
 MM.bufferLoader = function(url, index) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
@@ -65,10 +68,14 @@ MM.processBuffers = function(arr) {
 
     MM.arrSourceNodes[i].connect(MM.arrGainNodes[i]);
     MM.arrGainNodes[i].connect(MM.audioContext.destination);
+
+    MM.arrGainNodes[i].gain.value = 0;
+    MM.arrSourceNodes[i].start(0);
   }
-  MM.arrGainNodes[3].gain.value = 0;
-  MM.arrSourceNodes[0].start(0);
-  MM.arrSourceNodes[3].start(0);
+  // MM.arrGainNodes[MM.currentSlowTrack].gain.value = 1;
+  // MM.arrGainNodes[3].gain.value = 0;
+  // MM.arrSourceNodes[0].start(0);
+  // MM.arrSourceNodes[3].start(0);
 };
 
 
@@ -90,11 +97,11 @@ MM.crossFade = function(el) {
 
   var gain0 = Math.cos(x * 0.5 * Math.PI);
   console.log(gain0);
-  MM.arrGainNodes[0].gain.value = gain0;
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = gain0;
 
   var gain1 = Math.cos((1.0 - x) * 0.5 * Math.PI);
   console.log(gain1);
-  MM.arrGainNodes[3].gain.value = gain1;
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = gain1;
 
   if (gain0 > 0.5 && gain0 <= 1) {
       MM.tlLA.restart();
@@ -129,15 +136,45 @@ MM.tlLA = new TimelineLite({ paused: true });
 MM.tlLA.to(MM.leftArm, 0.3, { x: '10%', ease: Power0.easeIn, repeat: -1, yoyo: true });
 
 $('#start-spinning').on('click', function() {
-  MM.start();
+  // MM.start();
   // MM.tlRA.restart();
   MM.tlLA.restart();
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = 1;
+  // MM.arrGainNodes[MM.currentFastTrack].gain.value = 0;
+
 });
 
 $('#stop-spinning').on('click', function() {
   MM.countLoadComplete = 0;
-  MM.arrSourceNodes[0].stop(0);
-  MM.arrSourceNodes[3].stop(0);
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = 0;
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = 0;
+
+  // MM.arrSourceNodes[0].stop(0);
+  // MM.arrSourceNodes[3].stop(0);
   MM.tlRA.stop();
   MM.tlLA.stop();
+});
+
+$('input[name=loops-slow]').on('change', function(){
+  var val = $(this).val();
+  // var currentSlow = MM.currentSlowTrack;
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = 0;
+  // MM.arrSourceNodes[MM.currentSlowTrack].stop();
+  MM.currentSlowTrack = val;
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = 1;
+  // MM.arrSourceNodes[MM.currentSlowTrack].start(0);
+});
+
+$('input[name=loops-fast]').on('change', function(){
+  var val = $(this).val();
+  // var currentSlow = MM.currentSlowTrack;
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = 0;
+  // MM.arrSourceNodes[MM.currentSlowTrack].stop();
+  MM.currentFastTrack = val;
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = 1;
+  // MM.arrSourceNodes[MM.currentSlowTrack].start(0);
+});
+
+$(document).ready(function(){
+  MM.start();
 });
