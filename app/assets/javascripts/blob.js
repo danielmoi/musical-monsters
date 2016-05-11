@@ -135,8 +135,15 @@ var drawStuff = function() {
 
     console.dir(this);
 
-    tooltip.style('left', (d3.event.pageX) + 'px').
-    style('top', (d3.event.pageY - 300) + 'px');
+    tooltip
+      .transition()
+      .duration(200)
+      .style('opacity', 0.9);
+
+    tooltip
+      .style('left', (d3.event.pageX) + 'px')
+      .style('top', (d3.event.pageY - 300) + 'px');
+
     line1.html(lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
     line2.html((data/255 * 100).toFixed(1) + '%');
 
@@ -144,5 +151,9 @@ var drawStuff = function() {
   .on('mouseout', function(data) {
     d3.select(this)
     .style('fill', '#000000');
+
+    tooltip
+    .transition()
+    .style('opacity', 0);
   });
 };
