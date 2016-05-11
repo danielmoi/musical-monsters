@@ -183,9 +183,13 @@ MM.drawTimeDomain = function() {
     MM.canvasEqContext.fillStyle = '#ffffff';
 
     // upperLeft.x, upperLeft.y, width, height
-    MM.canvasEqContext.fillRect(i * 10 + 10, 100 - y / 2, 5, y / 2);
+    MM.canvasEqContext.fillRect(
+      i * 10 + 10,
+      120 - (y / 2),
+      5,
+      y / 2
+    );
   }
-
 };
 
 // Clear Canvas
@@ -207,7 +211,12 @@ MM.drawVolume = function() {
   // console.log(MM.averageVolume);
   MM.canvasVolContext.fillStyle = '#00ffff';
   // MM.canvasVolContext.fillRect(50, 100 - MM.averageVolume / 2, 75, MM.averageVolume / 2);
-  MM.canvasVolContext.fillRect(width / 2, 100 - MM.averageVolume / 2, width, MM.averageVolume / 2);
+  MM.canvasVolContext.fillRect(
+    width / 2,
+    120 - (MM.averageVolume / 2), 
+    width,
+    MM.averageVolume / 2
+  );
 
 };
 MM.moveMonster = function() {

@@ -22,3 +22,54 @@
   width: 45%;
   display: inline-block;
 }
+
+.canvas__container {
+  text-align: center;
+}
+.canvas__equalizer {
+  width: 80%;
+  height: 100px;
+  display: inline-block;
+  background-color: black;
+}
+
+.canvas__volume {
+  width: 15%;
+  height: 100px;
+  // display: inline-block;
+  background: #333333;
+}
+
+.monster__container {
+  max-width: 50%;
+  margin: 20px auto;
+  position: relative;
+  height: 280px;
+}
+
+
+.monster__body {
+  position: absolute;
+  // top: 0;
+}
+
+.monster__hat {
+  position: absolute;
+  // width: 35%;
+  // left: 45%;
+  // top: -20px;
+}
+
+.monster__arm-left {
+  position: absolute;
+  // width: 30%;
+  // top: 50%;
+  // left: -20px;
+}
+
+.monster__arm-right {
+  position: absolute;
+  // width: 30%;
+  // top: 50%;
+  // right: -20px;
+}
