@@ -24,7 +24,7 @@ MM.getStream = $.ajax({
   MM.source.connect(MM.audioContext.destination);
 
   MM.analyser = MM.audioContext.createAnalyser();
-  MM.analyser.fftSize = 512;
+  MM.analyser.fftSize = 128;
   MM.analyser.smoothingTimeConstant = 0.3;
 
   MM.source.connect(MM.analyser);
@@ -86,7 +86,7 @@ $('#snapshot').on('click', function() {
 
 var drawStuff = function() {
 
-  var width = 600;
+  var width = 800;
   var height = 400;
 
   var y = d3.scale
@@ -107,7 +107,7 @@ var drawStuff = function() {
   .data(MM.arrFrequencyData)
   .enter()
   .append('g')
-  .attr('transform', function(d, i) { return 'translate(' + i * barWidth + ',0)'; });
+  .attr('transform', function(d, i) { return 'translate(' + (i * barWidth) +  ',0)'; });
 
   bar.append('rect')
   .attr('y', function(d) { return y(d); })
