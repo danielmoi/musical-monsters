@@ -4,14 +4,20 @@
   border-top: 1px solid $primary;
   position: fixed;
   bottom: 0;
-  height: 50px;
+  height: 30px;
+  line-height: 30px;
   width: 100%;
-  padding: 1em 0;
   background: #ffffff;
+  @media screen and (min-width: 600px) {
+    height: 50px;
+    line-height: 50px;
+  }
 
 }
 
 .footer__list-item {
+  display: inline;
+  padding: 0 1em;
   @media screen and (min-width: 600px) {
     display: inline;
     padding: 0 1em;
