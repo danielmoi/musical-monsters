@@ -96,7 +96,7 @@ var drawStuff = function() {
   .domain([0, d3.max(MM.arrFrequencyData, function(d) { return d; })]);
 
 
-
+  var monsterText = d3.select('.monster-text');
   // console.log(y(100));
 
   var chart = d3.select('#snapshot-svg')
@@ -152,27 +152,28 @@ var drawStuff = function() {
     .style('fill', 'tomato');
 
 
-    tooltip
-      .transition()
-      .duration(200)
-      .style('opacity', 0.9);
+    // tooltip
+    //   .transition()
+    //   .duration(200)
+    //   .style('opacity', 0.9);
 
     console.log(d3.event);
 
-    tooltip
-      .style('left', (d3.event.pageX) + 'px')
-      .style('top', (d3.event.pageY - 300) + 'px');
+    // tooltip
+    //   .style('left', (d3.event.pageX) + 'px')
+    //   .style('top', (d3.event.pageY - 300) + 'px');
 
-    line1.html(lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
-    line2.html((data/255 * 100).toFixed(1) + '%');
+    line2.html(lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
+
+    monsterText.text((data/255 * 100).toFixed(0) + '%');
 
   })
   .on('mouseout', function(data) {
     d3.select(this)
     .style('fill', '#000000');
 
-    tooltip
-    .transition()
-    .style('opacity', 0);
+    // tooltip
+    // .transition()
+    // .style('opacity', 0);
   });
 };

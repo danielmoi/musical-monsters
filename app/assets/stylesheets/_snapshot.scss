@@ -1,15 +1,18 @@
 .snapshot__tooltip {
-  opacity: 0;
   position: absolute;
   display: inline-block;
   text-align: center;
-  // width: 60px;
+
   min-height: 30px;
-  padding: 1em;
+  padding: 0.5em 1em;
+  width: 25%;
 
   background: tomato;
   z-index: 10;
   top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .snapshot__tooltip--line1 {
@@ -31,5 +34,15 @@
 
 .snapshot-svg__container {
   text-align: center;
-  
+  position: relative;
+
+}
+
+.snapshot-monster__container {
+  display: inline-block;
+  width: 30%;
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
