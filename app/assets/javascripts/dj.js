@@ -108,17 +108,22 @@ MM.rightArm = $('#right-arm');
 MM.leftArm = $('#left-arm');
 
 MM.tlRA = new TimelineLite({ paused: true });
-MM.tlRA.to(MM.rightArm, 0.2, { x: '-25%', ease: Power0.easeIn, repeat: 2, yoyo: true })
-.to(MM.rightArm, 0.2, { x: '0%', ease: Power0.easeIn });
+MM.tlRA.to(MM.rightArm, 0.2, { x: '-10%', ease: Power0.easeIn, repeat: -1, yoyo: true });
+// .to(MM.rightArm, 0.2, { x: '0%', ease: Power0.easeIn });
 
+MM.tlLA = new TimelineLite({ paused: true });
+MM.tlLA.to(MM.leftArm, 0.3, { x: '10%', ease: Power0.easeIn, repeat: -1, yoyo: true });
 
 $('#start-spinning').on('click', function() {
   MM.start();
   MM.tlRA.restart();
+  MM.tlLA.restart();
 });
 
 $('#stop-spinning').on('click', function() {
   MM.countLoadComplete = 0;
   MM.arrSourceNodes[0].stop(0);
   MM.arrSourceNodes[3].stop(0);
+  MM.tlRA.stop();
+  MM.tlLA.stop();
 });
