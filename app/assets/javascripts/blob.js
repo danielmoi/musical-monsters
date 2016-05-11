@@ -104,6 +104,7 @@ var drawStuff = function() {
   .attr('width', width)
   .attr('height', height);
 
+  var tooltip = d3.select('.tooltip');
   var line1 = d3.select('.line1');
   var line2 = d3.select('.line2-details');
 
@@ -120,11 +121,6 @@ var drawStuff = function() {
   .attr('height', function(d) { return height - y(d); })
   .attr('width', barWidth - 1);
 
-  bar.append('text')
-  .attr('x', barWidth / 2)
-  .attr('y', function(d) { return y(d) + 3; })
-  .attr('dy', '0.75em')
-  .text(function (d) { return d; });
 
   bar.on('mouseover', function(data, i) {
     var total = 44100;
@@ -137,6 +133,10 @@ var drawStuff = function() {
     d3.select(this)
     .style('fill', 'tomato');
 
+    console.dir(this);
+
+    tooltip.style('left', (d3.event.pageX) + 'px').
+    style('top', (d3.event.pageY - 300) + 'px');
     line1.html(lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
     line2.html((data/255 * 100).toFixed(1) + '%');
 
