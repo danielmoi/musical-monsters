@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'drums' => 'pages#drums'
   get 'sounds-3d' => 'pages#sounds-3d'
   get 'piano' => 'pages#piano'
+  get 'blob' => 'pages#blob'
 
 
 end

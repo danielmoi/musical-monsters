@@ -13,4 +13,7 @@ class PagesController < ApplicationController
 
   def dance
   end
+
+  def blob
+  end
 end
