@@ -86,30 +86,37 @@ $('#snapshot').on('click', function() {
 
 var drawStuff = function() {
 
-  var width = 500;
-  var barHeight = 20;
+  var width = 600;
+  var height = 400;
 
-  var x = d3.scale.linear()
-  .domain([0, d3.max(MM.arrFrequencyData)])
-  .range([0, 600]);
+  var y = d3.scale
+  .linear()
+  .range([height, 0])
+  .domain([0, d3.max(MM.arrFrequencyData, function(d) { return d; })]);
+
+
+  console.log(y(100));
 
   var chart = d3.select('#blob-svg')
   .attr('width', width)
-  .attr('height', barHeight * MM.arrFrequencyData.length);
+  .attr('height', height);
+
+  var barWidth = width / MM.arrFrequencyData.length;
 
   var bar = chart.selectAll('g')
   .data(MM.arrFrequencyData)
   .enter()
   .append('g')
-  .attr('transform', function(d, i) { return 'translate(0,' + i * barHeight + ')'; });
+  .attr('transform', function(d, i) { return 'translate(' + i * barWidth + ',0)'; });
 
   bar.append('rect')
-  .attr('width', x )
-  .attr('height', barHeight - 1);
+  .attr('y', function(d) { return y(d); })
+  .attr('height', function(d) { return height - y(d); })
+  .attr('width', barWidth - 1);
 
   bar.append('text')
-  .attr('x', function(d) { return x(d) - 3; })
-  .attr('y', barHeight / 2)
-  .attr('dy', '0.35em')
+  .attr('x', barWidth / 2)
+  .attr('y', function(d) { return y(d) + 3; })
+  .attr('dy', '0.75em')
   .text(function (d) { return d; });
 };

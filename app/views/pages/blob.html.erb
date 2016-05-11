@@ -4,8 +4,20 @@
 <button id="stop" class="btn">Stop</button>
 <button id="snapshot" class="btn">Snapshot</button>
 
+<style>
+  #blob-svg {
+    chart rect {
+      fill: white;
+    }
 
-<svg id ="blob-svg"></svg>
+    #blob-svg text {
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: middle;
+    }
+
+</style>
+<svg id="blob-svg"></svg>
 <!-- <div class="chart"></div> -->
 
 <%= javascript_include_tag 'd3.v3.min.js' %>
