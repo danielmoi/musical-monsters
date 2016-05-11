@@ -50,13 +50,11 @@ $('#play').on('click', function() {
   };
 });
 
-$('#stop').on('click', function() {
-  MM.audioElement.pause();
-});
 
 $('#snapshot').on('click', function() {
   console.log(MM.arrFrequencyData);
   console.log(MM.arrTimeDomainData);
+  MM.audioElement.pause();
 
   drawStuff();
 });
@@ -89,7 +87,7 @@ var drawStuff = function() {
 
 
 
-  var width = 700;
+  var width = 600;
   var height = 400;
 
   var y = d3.scale

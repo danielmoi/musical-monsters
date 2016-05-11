@@ -14,6 +14,6 @@ class PagesController < ApplicationController
   def dance
   end
 
-  def blob
+  def snapshot
   end
 end
