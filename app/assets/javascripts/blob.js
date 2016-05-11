@@ -82,13 +82,19 @@ $('#snapshot').on('click', function() {
 // .attr('width', 25 )
 // .style('fill', 'red');
 
+
+
 var drawStuff = function() {
+  var x = d3.scale.linear()
+  .domain([0, d3.max(MM.arrFrequencyData)])
+  .range([0, 600]);
+
   d3.select('.chart')
   .selectAll('div')
   .data(MM.arrFrequencyData)
   .enter()
   .append('div')
-  .style('width', function(d) { return d + 'px'; } )
+  .style('width', function(d) { return x(d) + 'px'; } )
   .style('background', 'tomato')
   .text(function (d) { return d; });
 };
