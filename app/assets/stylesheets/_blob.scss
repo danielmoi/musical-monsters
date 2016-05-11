@@ -5,8 +5,21 @@
   // width: 60px;
   min-height: 30px;
   padding: 1em;
-  
+
   background: tomato;
   z-index: 10;
   top: 0;
+}
+
+.line1 {
+  font-style: italic;
+}
+
+.line2 {
+  font-size: 0.8em;
+}
+
+.line2-details {
+  font-weight: 900;
+  font-size: 1rem;
 }
