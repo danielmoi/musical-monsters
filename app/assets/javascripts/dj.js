@@ -95,6 +95,20 @@ MM.crossFade = function(el) {
   var gain1 = Math.cos((1.0 - x) * 0.5 * Math.PI);
   console.log(gain1);
   MM.arrGainNodes[3].gain.value = gain1;
+
+  if (gain0 > 0.5 && gain0 <= 1) {
+      MM.tlLA.restart();
+  }
+  else {
+    MM.tlLA.stop();
+  }
+
+  if (gain1 > 0.5 && gain1 <= 1) {
+    MM.tlRA.restart();
+  }
+  else {
+    MM.tlRA.stop();
+  }
 };
 
 
@@ -116,7 +130,7 @@ MM.tlLA.to(MM.leftArm, 0.3, { x: '10%', ease: Power0.easeIn, repeat: -1, yoyo: t
 
 $('#start-spinning').on('click', function() {
   MM.start();
-  MM.tlRA.restart();
+  // MM.tlRA.restart();
   MM.tlLA.restart();
 });
 
