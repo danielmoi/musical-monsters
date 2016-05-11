@@ -85,16 +85,31 @@ $('#snapshot').on('click', function() {
 
 
 var drawStuff = function() {
+
+  var width = 500;
+  var barHeight = 20;
+
   var x = d3.scale.linear()
   .domain([0, d3.max(MM.arrFrequencyData)])
   .range([0, 600]);
 
-  d3.select('.chart')
-  .selectAll('div')
+  var chart = d3.select('#blob-svg')
+  .attr('width', width)
+  .attr('height', barHeight * MM.arrFrequencyData.length);
+
+  var bar = chart.selectAll('g')
   .data(MM.arrFrequencyData)
   .enter()
-  .append('div')
-  .style('width', function(d) { return x(d) + 'px'; } )
-  .style('background', 'tomato')
+  .append('g')
+  .attr('transform', function(d, i) { return 'translate(0,' + i * barHeight + ')'; });
+
+  bar.append('rect')
+  .attr('width', x )
+  .attr('height', barHeight - 1);
+
+  bar.append('text')
+  .attr('x', function(d) { return x(d) - 3; })
+  .attr('y', barHeight / 2)
+  .attr('dy', '0.35em')
   .text(function (d) { return d; });
 };
