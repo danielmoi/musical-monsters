@@ -103,6 +103,14 @@ $('rect').on('mousedown', function() {
   $('.piano__note').text(note);
 });
 
+
+
 $('rect').on('mouseup', function() {
   M.currentGain.gain.value = 0;
+});
+
+$(document).on('keydown', function(e){
+  if (e.keyCode === 65) {
+    console.log('a');
+  }
 });
