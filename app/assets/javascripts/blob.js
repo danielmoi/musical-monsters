@@ -104,9 +104,8 @@ var drawStuff = function() {
   .attr('width', width)
   .attr('height', height);
 
-  var div = d3.select('body').append('div')
-  .attr('class', 'tooltip')
-  .style('opacity', 1);
+  var line1 = d3.select('.line1');
+  var line2 = d3.select('.line2');
 
   var barWidth = width / MM.arrFrequencyData.length;
 
@@ -127,11 +126,20 @@ var drawStuff = function() {
   .attr('dy', '0.75em')
   .text(function (d) { return d; });
 
-  bar.on('mouseover', function(data) {
+  bar.on('mouseover', function(data, i) {
+    var total = 44100;
+    var bin = 44100 / 128; // we divide by fftSize
+    var lower = i * bin;
+    var higher = lower + bin;
+    console.log('lower: ' + lower + 'higher: ' + higher);
     console.log(data);
+
     d3.select(this)
     .style('fill', 'tomato');
-    div.html(data);
+
+    line1.html('Frequency range: ' + lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
+    line2.html('The input signal is: ' + (data/255 * 100).toFixed(1) + '%');
+
   })
   .on('mouseout', function(data) {
     d3.select(this)
