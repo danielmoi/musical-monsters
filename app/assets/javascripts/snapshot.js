@@ -102,6 +102,8 @@ var drawStuff = function() {
   .attr('width', width)
   .attr('height', height);
 
+  var old = d3.select('#snapshot-svg').selectAll('g').remove();
+
   var tooltip = d3.select('.snapshot__tooltip');
   var line1 = d3.select('.snapshot__tooltip--line1');
   var line2 = d3.select('.snapshot__tooltip--line2-details');
