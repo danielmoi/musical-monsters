@@ -156,14 +156,21 @@ m3d.init = function() {
     m3d.arrCubes[i] = [];
     for (var y = 0; y < 30; y += 2) {
       var geometry = new THREE.CubeGeometry(1.5, 1.5, 1.5);
-      // var material = new THREE.MeshLambertMaterial({
-      //   // color: 0x00ff00
-      //   map: m3d.texture1
-      // });
-      var material = new THREE.MeshLambertMaterial({
+      var materialColor = new THREE.MeshLambertMaterial({
+        color: 0x00ff00,
+      });
+      var materialMonster = new THREE.MeshLambertMaterial({
         map: m3d.texture1
       });
-      m3d.arrCubes[i][j] = new THREE.Mesh(geometry, material);
+
+      geometry.materials = [ materialColor, materialMonster ];
+      geometry.faces[0].materialIndex = 0;
+
+      var arrMaterial = [materialMonster, materialColor];
+      var materialMagic = new THREE.MeshFaceMaterial(arrMaterial);
+
+      // m3d.arrCubes[i][j] = new THREE.Mesh(geometry, materialMonster);
+      m3d.arrCubes[i][j] = new THREE.Mesh(geometry, materialMonster);
 
       // set positions here, no need to use Vector3
       m3d.arrCubes[i][j].position.set(x, y, 0);
