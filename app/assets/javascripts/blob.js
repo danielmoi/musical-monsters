@@ -34,6 +34,7 @@ MM.getStream = $.ajax({
   MM.javascriptNode = MM.audioContext.createScriptProcessor(2048, 1, 1);
   MM.analyser.connect(MM.javascriptNode);
   MM.javascriptNode.connect(MM.audioContext.destination);
+  console.log('end of getStream');
 });
 
 $('#play').on('click', function() {
@@ -130,6 +131,7 @@ var drawStuff = function() {
     console.log(data);
     d3.select(this)
     .style('fill', 'tomato');
+    div.html(data);
   })
   .on('mouseout', function(data) {
     d3.select(this)
