@@ -96,7 +96,8 @@ var drawStuff = function() {
   .domain([0, d3.max(MM.arrFrequencyData, function(d) { return d; })]);
 
 
-  console.log(y(100));
+
+  // console.log(y(100));
 
   var chart = d3.select('#snapshot-svg')
   .attr('width', width)
@@ -121,24 +122,42 @@ var drawStuff = function() {
   .attr('height', function(d) { return height - y(d); })
   .attr('width', barWidth - 1);
 
+  // bar.append('circle')
+  // .attr('cx', function(d, i) { return (i * barWidth); })
+  // .attr('cy', function(d) { return y(d); })
+  // .attr('r', 5)
+  // .attr('fill', 'red');
+
+
+  // bar.append("text")
+  //     .attr("x", barWidth / 2 )
+  //     .attr("y", function(d) { return y(d) + 3; })
+  //     .attr("dy", '-10')
+  //     .attr('fill', 'white')
+  //     .text(function(d) {
+  //       var text = (d / 255 * 100).toFixed(1) + '%';
+  //       return text;
+  //     });
+
 
   bar.on('mouseover', function(data, i) {
     var total = 44100;
     var bin = 44100 / 128; // we divide by fftSize
     var lower = i * bin;
     var higher = lower + bin;
-    console.log('lower: ' + lower + 'higher: ' + higher);
-    console.log(data);
+    // console.log('lower: ' + lower + 'higher: ' + higher);
+    // console.log(data);
 
     d3.select(this)
     .style('fill', 'tomato');
 
-    console.dir(this);
 
     tooltip
       .transition()
       .duration(200)
       .style('opacity', 0.9);
+
+    console.log(d3.event);
 
     tooltip
       .style('left', (d3.event.pageX) + 'px')
