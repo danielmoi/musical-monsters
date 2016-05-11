@@ -89,7 +89,7 @@ m3d.init = function() {
   // m3d.camera.position.y = -50;
   // m3d.camera.position.z = 60;
   // m3d.camera.position.set(40, -10, 50);
-  m3d.camera.position.set(20, 10, 45);
+  m3d.camera.position.set(20, 10, 8);
   // m3d.camera.up = new THREE.Vector3(10,10,11);
   // m3d.camera.position.set( new THREE.Vector3(1.21, 7.5, 76.2));
 
