@@ -15,6 +15,8 @@ MM.countLoadComplete = 0;
 
 MM.currentSlowTrack = 0;
 MM.currentFastTrack = 3;
+MM.gainSlow = 1;
+MM.gainFast = 0;
 
 MM.bufferLoader = function(url, index) {
   var request = new XMLHttpRequest();
@@ -95,22 +97,22 @@ MM.crossFade = function(el) {
 
   var x = num / max;
 
-  var gain0 = Math.cos(x * 0.5 * Math.PI);
-  console.log(gain0);
-  MM.arrGainNodes[MM.currentSlowTrack].gain.value = gain0;
+  MM.gainSlow = Math.cos(x * 0.5 * Math.PI);
+  console.log(MM.gainSlow);
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = MM.gainSlow;
 
-  var gain1 = Math.cos((1.0 - x) * 0.5 * Math.PI);
-  console.log(gain1);
-  MM.arrGainNodes[MM.currentFastTrack].gain.value = gain1;
+  MM.gainFast = Math.cos((1.0 - x) * 0.5 * Math.PI);
+  console.log(MM.gainFast);
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = MM.gainFast;
 
-  if (gain0 > 0.5 && gain0 <= 1) {
+  if (MM.gainSlow > 0.5 && MM.gainSlow <= 1) {
       MM.tlLA.restart();
   }
   else {
     MM.tlLA.stop();
   }
 
-  if (gain1 > 0.5 && gain1 <= 1) {
+  if (MM.gainFast > 0.5 && MM.gainFast <= 1) {
     MM.tlRA.restart();
   }
   else {
@@ -139,8 +141,8 @@ $('#start-spinning').on('click', function() {
   // MM.start();
   // MM.tlRA.restart();
   MM.tlLA.restart();
-  MM.arrGainNodes[MM.currentSlowTrack].gain.value = 1;
-  // MM.arrGainNodes[MM.currentFastTrack].gain.value = 0;
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = MM.gainSlow;
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = MM.gainFast;
 
 });
 
@@ -161,7 +163,7 @@ $('input[name=loops-slow]').on('change', function(){
   MM.arrGainNodes[MM.currentSlowTrack].gain.value = 0;
   // MM.arrSourceNodes[MM.currentSlowTrack].stop();
   MM.currentSlowTrack = val;
-  MM.arrGainNodes[MM.currentSlowTrack].gain.value = 1;
+  MM.arrGainNodes[MM.currentSlowTrack].gain.value = MM.gainSlow;
   // MM.arrSourceNodes[MM.currentSlowTrack].start(0);
 });
 
@@ -171,7 +173,7 @@ $('input[name=loops-fast]').on('change', function(){
   MM.arrGainNodes[MM.currentFastTrack].gain.value = 0;
   // MM.arrSourceNodes[MM.currentSlowTrack].stop();
   MM.currentFastTrack = val;
-  MM.arrGainNodes[MM.currentFastTrack].gain.value = 1;
+  MM.arrGainNodes[MM.currentFastTrack].gain.value = MM.gainFast;
   // MM.arrSourceNodes[MM.currentSlowTrack].start(0);
 });
 
