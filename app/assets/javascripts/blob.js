@@ -105,7 +105,7 @@ var drawStuff = function() {
   .attr('height', height);
 
   var line1 = d3.select('.line1');
-  var line2 = d3.select('.line2');
+  var line2 = d3.select('.line2-details');
 
   var barWidth = width / MM.arrFrequencyData.length;
 
@@ -137,8 +137,8 @@ var drawStuff = function() {
     d3.select(this)
     .style('fill', 'tomato');
 
-    line1.html('Frequency range: ' + lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
-    line2.html('The input signal is: ' + (data/255 * 100).toFixed(1) + '%');
+    line1.html(lower.toFixed(0) + ' – ' + higher.toFixed(0) + 'Hz');
+    line2.html((data/255 * 100).toFixed(1) + '%');
 
   })
   .on('mouseout', function(data) {
