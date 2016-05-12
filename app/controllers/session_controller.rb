@@ -9,9 +9,9 @@ class SessionController < ApplicationController
       session[:user_id] = user.id
       # log in
       redirect_to user_path(user)
-    elsif
-      !user
-      redirect_to signup_path
+    # elsif
+    #   !user
+    #   redirect_to signup_path
     else
       flash[:error]='Incorrect email or password'
       redirect_to login_path

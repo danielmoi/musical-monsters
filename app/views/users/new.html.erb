@@ -3,6 +3,14 @@
 
 <%= form_for @user, :html => {:class => 'form'} do |f| %>
 
+<% if @user.errors.any? %>
+  <ol>
+    <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ol>
+<% end %>
+
 <fieldset>
   <%= f.label :email, :class => 'label'  %>
   <%= f.email_field :email, :required => true, :class => 'input'  %>

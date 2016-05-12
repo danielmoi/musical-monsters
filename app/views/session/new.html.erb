@@ -1,6 +1,13 @@
 <h2 class="main__title">LOGIN</h2>
 <div class="login-container">
 
+  <!--  Display error from login fail (redirect from login `else`)-->
+  <% if flash[:error].present? %>
+  <h3 class="login__error-heading">
+    <%= flash[:error] %>
+  </h3>
+  <% end %>
+
   <%= form_tag login_path, :class => 'form' do %>
 
   <fieldset>
