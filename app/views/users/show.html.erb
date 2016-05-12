@@ -1,9 +1,12 @@
-<h2 class="main__title">User Profile</h2>
+<h2 class="main__title">PROFILE</h2>
 
-<p>Name: <%= @user.name %></p>
-<p>Email: <%= @user.email %></p>
+<div class="profile__container">
+  <p><strong>NAME:</strong>
+    <%= @user.name %></p>
+  <p><strong>EMAIL:</strong>
+    <%= @user.email %></p>
 
-<p><%= @user.name %></p>
-<div class="btn-container">
-  <%= link_to "Edit Profile", users_edit_path, :class => 'btn' %>
+  <div class="btn-container">
+    <%= link_to "Edit Profile", users_edit_path, :class => 'btn' %>
+  </div>
 </div>

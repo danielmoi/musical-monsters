@@ -7,6 +7,11 @@ input {
   font-size: 1em;
   padding: 0.5em;
   color: $primary;
+  width: 30%;
+}
+
+input[type=submit] {
+  width: inherit;
 }
 
 .label {
