@@ -29,11 +29,11 @@ For the inquisitive types, Snapshot Monster allows you to take an audio-snapshot
 Musical Monsters is a Ruby on Rails web application (Ruby 2.3.0, Rails 4.2.6, Postgres 9.5.1).
 
 Libraries / resources used:
-- Three.js
-- D3.js
-- Web Audio API
-- SoundCloud API
-- Spotify API
+- [Three.js](http://threejs.org)
+- [D3.js](http://d3js.org)
+- [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+- [SoundCloud API](https://developer.soundcloud.com/)
+- [Spotify API](https://developer.spotify.com/web-api/)
 
 ----
 ## Usage
