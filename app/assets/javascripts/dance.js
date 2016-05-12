@@ -180,7 +180,7 @@ MM.drawTimeDomain = function() {
   for (var i = 0; i < MM.arrFrequencyData.length; i++) {
     var value = MM.arrFrequencyData[i] / 256;
     var y = MM.$canvasEq.height() - (MM.$canvasEq.height() * value);
-    MM.canvasEqContext.fillStyle = '#ffffff';
+    MM.canvasEqContext.fillStyle = '#1ed760';
 
     // upperLeft.x, upperLeft.y, width, height
     MM.canvasEqContext.fillRect(
