@@ -18,6 +18,8 @@ MM.currentFastTrack = 3;
 MM.gainSlow = 1;
 MM.gainFast = 0;
 
+MM.tracksReady = false;
+
 MM.bufferLoader = function(url, index) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
@@ -34,7 +36,8 @@ MM.bufferLoader = function(url, index) {
         MM.countLoadComplete += 1;
         if (MM.countLoadComplete === MM.arrBuffers.length) {
           console.log('all buffers finished loading!');
-          MM.processBuffers(MM.arrBuffers);
+          MM.tracksReady = true;
+          $('.dj__instructions').text('');          MM.processBuffers(MM.arrBuffers);
         }
       },
       function(error) {
@@ -145,6 +148,9 @@ MM.tlLA.to(MM.leftArm, 0.3, { x: '10%', ease: Power0.easeIn, repeat: -1, yoyo: t
 $('#start-spinning').on('click', function() {
   // MM.start();
   // MM.tlRA.restart();
+  if (!MM.tracksReady) {
+    return;
+  }
   MM.tlLA.restart();
   MM.tlMouth.restart();
   MM.arrGainNodes[MM.currentSlowTrack].gain.value = MM.gainSlow;
@@ -157,6 +163,9 @@ $('#mouth').on('click', function() {
 });
 
 $('#stop-spinning').on('click', function() {
+  if (!MM.tracksReady) {
+    return;
+  }
   MM.countLoadComplete = 0;
   MM.arrGainNodes[MM.currentSlowTrack].gain.value = 0;
   MM.arrGainNodes[MM.currentFastTrack].gain.value = 0;
