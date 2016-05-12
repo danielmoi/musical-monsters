@@ -41,6 +41,8 @@ M.arrNotes = {
 
 };
 
+var orange = '#F7931E';
+
 M.audioContext = new AudioContext();
 M.currentOsc = '';
 M.currentGain = '';
@@ -98,6 +100,9 @@ $('rect').on('mousedown', function() {
   var freq = M.arrNotes[$(this)[0].id];
   // console.log(freq);
   var noteString = $(this)[0].id;
+
+  var pianoKey = $('#' + noteString);
+  // pianoKey.attr('style', 'stroke: orange');
   var note = noteString.slice(0, noteString.length - 1);
   M.generateNote(freq, note);
 });
