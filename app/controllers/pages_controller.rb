@@ -16,4 +16,7 @@ class PagesController < ApplicationController
 
   def snapshot
   end
+
+  def cubes
+  end
 end
