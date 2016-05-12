@@ -2,7 +2,7 @@
 Musical monsters is a fun and interactive web application that allows you to experiment with music!
 
 
-![Musical Monsters]('../public/images/screenshot.png')
+![Musical Monsters](public/images/screenshot.png)
 
 ## The Monsters
 ### Dance Monster
