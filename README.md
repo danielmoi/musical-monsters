@@ -31,7 +31,7 @@ Musical Monsters is a Ruby on Rails web application (Ruby 2.3.0, Rails 4.2.6, Po
 Libraries / resources used:
 - [Three.js](http://threejs.org)
 - [D3.js](http://d3js.org)
-- [Greensock TweenMax/TweenLite](https;//greensock.com)
+- [Greensock TweenMax/TweenLite](https://greensock.com)
 - [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 - [SoundCloud API](https://developer.soundcloud.com/)
 - [Spotify API](https://developer.spotify.com/web-api/)
