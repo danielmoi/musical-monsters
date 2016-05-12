@@ -52,6 +52,7 @@ $('#soundcloud-search').on('click', function() {
       $a = $('<a>');
       $a.text(arrTracks[i].title);
       $a.attr('data-stream-url', streamURL);
+      $div.addClass('dance-tracks__list-item');
       $div.append($a);
       $('.dance-tracks__list').append($div);
     }
@@ -89,6 +90,7 @@ $('#spotify-search').on('click', function() {
       $a = $('<a>');
       $a.text(arrTracks[j].name + '(' + artist + ')');
       $a.attr('data-stream-url', streamURL);
+      $div.addClass('dance-tracks__list-item');
       $div.append($a);
       $('.dance-tracks__list').append($div);
     }
