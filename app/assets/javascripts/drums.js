@@ -1,4 +1,42 @@
-// Preload sounds
+var MM = MM || {};
+
+// SoundCloud details
+MM.soundCloudID = "3b2585ef4a5eff04935abe84aad5f3f3";
+MM.clientID = "client_id=3b2585ef4a5eff04935abe84aad5f3f3";
+MM.soundcloudURL = 'https://api.soundcloud.com/tracks/293';
+MM.trackPermalinkUrl = "https://soundcloud.com/the-outsider/the-outsider-death-by-melody";
+
+/////////////////////////////////////////////////////////////////////////////
+
+// Setup Audio environment
+MM.audioContext = new AudioContext();
+MM.audioElement = new Audio();
+MM.audioElement.crossOrigin = "anonymous";
+
+// Get stream
+MM.getStream = $.ajax({
+  url: MM.soundcloudURL + '?' + MM.clientID
+}).done(function(res){
+  MM.streamURL = res.stream_url + '?' + MM.clientID;
+  MM.audioElement.src = MM.streamURL;
+
+  MM.source = MM.audioContext.createMediaElementSource(MM.audioElement);
+  MM.source.connect(MM.audioContext.destination);
+
+
+
+  console.log('end of getStream');
+});
+
+$('#start').on('click', function(){
+  MM.audioElement.play();
+});
+$('#pause').on('click', function() {
+  MM.audioElement.pause();
+});
+/////////////////////////////////////////////////////////////////////////////
+
+// Preload sounds for instruments
 var arrSounds = [];
 
 function preloadSounds(arr) {
