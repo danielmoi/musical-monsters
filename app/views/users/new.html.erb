@@ -4,11 +4,15 @@
 <%= form_for @user, :html => {:class => 'form'} do |f| %>
 
 <% if @user.errors.any? %>
-
     <% @user.errors.full_messages.each do |msg| %>
       <h3 class="forms__error-heading"><%= msg %></h3>
     <% end %>
+<% end %>
 
+<% if flash[:error].present? %>
+<h3 class="forms__error-heading">
+  <%= flash[:error] %>
+</h3>
 <% end %>
 
 <fieldset>
