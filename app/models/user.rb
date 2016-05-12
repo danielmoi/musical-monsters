@@ -17,5 +17,9 @@ class User < ActiveRecord::Base
   has_secure_password
 
   validates :email, :presence => true, :uniqueness => true
-  
+
+  def default_username
+      "monster" + rand(10 ** 4).to_s + id.to_s
+  end
+
 end

@@ -7,7 +7,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
 
+    # @user.name ||= @user.default_username
+
+
+
     if @user.save
+      if @user.name.blank?
+        @user.name = @user.default_username
+        @user.save
+      end
       session[:user_id] = @user.id
       redirect_to @user
     else
