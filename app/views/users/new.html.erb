@@ -4,11 +4,11 @@
 <%= form_for @user, :html => {:class => 'form'} do |f| %>
 
 <% if @user.errors.any? %>
-  <ol>
+
     <% @user.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+      <h3 class="forms__error-heading"><%= msg %></h3>
     <% end %>
-  </ol>
+
 <% end %>
 
 <fieldset>

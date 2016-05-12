@@ -21,8 +21,12 @@ input[type=submit] {
   padding-right: 1em;
 }
 
-.login__error-heading {
+.forms__error-heading {
   text-align: center;
   padding: 1em 0;
   color: $orange;
+}
+
+.field_with_errors {
+  display: inline;
 }
