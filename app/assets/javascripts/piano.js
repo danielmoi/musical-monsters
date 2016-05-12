@@ -114,9 +114,112 @@ $('rect').on('mouseup', function() {
 });
 
 $(document).on('keydown', function(e){
+  // console.log(e);
   if (e.keyCode === 65) {
-    M.generateNote(M.arrNotes.C3, 'C');
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.C4, 'C');
+    }
+    else {
+      M.generateNote(M.arrNotes.C3, 'C');
+    }
   }
+  if (e.keyCode === 87) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.Db4, 'Db');
+    }
+    else {
+      M.generateNote(M.arrNotes.Db3, 'Db');
+    }
+  }
+  if (e.keyCode === 83) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.D4, 'D');
+    }
+    else {
+      M.generateNote(M.arrNotes.D3, 'D');
+    }
+  }
+  if (e.keyCode === 69) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.Eb4, 'Eb');
+    }
+    else {
+      M.generateNote(M.arrNotes.Eb3, 'Eb');
+    }
+  }
+  if (e.keyCode === 68) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.E4, 'E');
+    }
+    else {
+      M.generateNote(M.arrNotes.E3, 'E');
+    }
+  }
+  if (e.keyCode === 70) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.F4, 'F');
+    }
+    else {
+      M.generateNote(M.arrNotes.F3, 'F');
+    }
+  }
+  if (e.keyCode === 84) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes['F#4'], 'F#');
+    }
+    else {
+      M.generateNote(M.arrNotes['F#3'], 'F#');
+    }
+  }
+  if (e.keyCode === 71) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.G4, 'G');
+    }
+    else {
+      M.generateNote(M.arrNotes.G3, 'G');
+    }
+  }
+  if (e.keyCode === 89) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.Ab4, 'Ab');
+    }
+    else {
+      M.generateNote(M.arrNotes.Ab3, 'Ab');
+    }
+  }
+  if (e.keyCode === 72) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.A4, 'A');
+    }
+    else {
+      M.generateNote(M.arrNotes.A3, 'A');
+    }
+  }
+  if (e.keyCode === 85) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.Bb4, 'Bb');
+    }
+    else {
+      M.generateNote(M.arrNotes.Bb3, 'Bb');
+    }
+  }
+  if (e.keyCode === 74) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.B4, 'B');
+    }
+    else {
+      M.generateNote(M.arrNotes.B3, 'B');
+    }
+  }
+  if (e.keyCode === 75) {
+    if (e.shiftKey) {
+      M.generateNote(M.arrNotes.C5, 'C');
+    }
+    else {
+      M.generateNote(M.arrNotes.C4, 'C');
+    }
+  }
+
 });
 
 $(document).on('keyup', function() {
