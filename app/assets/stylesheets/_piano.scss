@@ -1,11 +1,11 @@
 .piano__note {
   // padding: 1em 0;
   font-size: 4em;
+  color: $orange;
 }
 
 .piano__svg {
-  margin-top: 50px;
-  padding-top: 20px;
+  padding-top: 50px;
   padding-right: 10px;
 }
 
@@ -13,9 +13,14 @@
   width: 20%;
   margin: 0 auto;
   text-align: center;
-  border: 1px solid white;
+  border: 3px solid $orange;
   border-radius: 10px;
   padding-top: 10px;
   height: 120px;
   padding: 1em;
+}
+
+.piano-monster__container {
+  margin: 0 auto;
+  padding: 50px 2em;
 }
